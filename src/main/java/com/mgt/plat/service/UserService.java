@@ -4,7 +4,7 @@ import com.mgt.plat.entity.User;
 import com.mgt.plat.utils.ResultBean;
 
 /**
- * package_name：com.mgt.plat.service.user
+ * package name：com.mgt.plat.service.user
  * description：
  * user：JupSat
  * modification time：2022-12-17 12:45
@@ -12,5 +12,6 @@ import com.mgt.plat.utils.ResultBean;
  **/
 public interface UserService {
     ResultBean register(User user);
+
     User findByUserName(String username);
 }

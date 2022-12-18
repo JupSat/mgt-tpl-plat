@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * package_name：com.mgt.plat.utils
+ * package name：com.mgt.plat.utils
  * description：
  * user：JupSat
  * modification time：2022-12-17 12:49

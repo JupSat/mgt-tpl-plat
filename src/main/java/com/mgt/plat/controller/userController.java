@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 
 /**
- * package_name：com.mgt.plat.controller
+ * package name：com.mgt.plat.controller
  * description：
  * user：JupSat
  * modification time：2022-12-17 14:53

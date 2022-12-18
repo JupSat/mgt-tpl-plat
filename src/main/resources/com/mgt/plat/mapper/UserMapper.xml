@@ -18,9 +18,9 @@
         u.username,
         u.avatar,
         u.email,
-        u.description,
+        u.description
         FROM
-        user_info
+        user_info u
         WHERE u.username = #{username}
     </select>
 

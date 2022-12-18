@@ -17,7 +17,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * package_name：com.mgt.plat.entity
+ * package name：com.mgt.plat.entity
  * description：
  * user：JupSat
  * modification time：2022-12-17 11:29
@@ -33,7 +33,7 @@ public class User implements Serializable {
      private static final long serialVersionUID = 7523949335132070505L;
 
     @ApiModelProperty(value = "用户id")
-    @TableId(type = IdType.ID_WORKER)
+    @TableId(type = IdType.ASSIGN_ID)
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 

@@ -9,22 +9,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.util.List;
+
 /**
- * package_name：com.mgt.plat.service.impl
+ * package name：com.mgt.plat.service.impl
  * description：
  * user：JupSat
  * modification time：2022-12-17 15:01
  * modified content：
  **/
 @Service
-public class UserServiceImpl implements UserService {
+ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
     @Override
     public ResultBean register(User user) {
         if(!ObjectUtils.isEmpty(this.findByUserName(user.getUsername()))){
-            return ResultBean.warn("用户名已存在请重新输入");
+            return ResultBean.warn("用户名已存在");
         }
         user.setPassword(user.getPassword());
         int insert = userMapper.insert(user);
@@ -38,8 +40,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUserName(String username) {
-        User user = userMapper.selectOne(new QueryWrapper<User>().eq("username", username));
-        System.out.println(user);
-        return user;
+       return userMapper.queryUserByUsername(username);
     }
 }
