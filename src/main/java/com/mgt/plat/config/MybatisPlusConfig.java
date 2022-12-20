@@ -11,6 +11,6 @@ import org.springframework.context.annotation.Configuration;
  * modified content：
  **/
 @Configuration
-@MapperScan("com.mgt.plat.mapper*")
+@MapperScan("com.mgt.plat.mapper")
 public class MybatisPlusConfig {
 }

@@ -1,6 +1,7 @@
 package com.mgt.plat.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -12,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -28,12 +28,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value="User对象", description="User对象")
+@TableName(value = "user_info")
 public class User implements Serializable {
-     @Serial
-     private static final long serialVersionUID = 7523949335132070505L;
+    private static final long serialVersionUID = 7523949335132070505L;
 
     @ApiModelProperty(value = "用户id")
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 

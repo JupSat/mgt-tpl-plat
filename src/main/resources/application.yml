@@ -7,7 +7,7 @@ spring:
   datasource:
     username: root
     password: FYADXZ@002
-    url: jdbc:mysql://localhost:3306/mgt_tpl?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/mgt_tpl?serverTimezone=UTC&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis-plus:
@@ -18,7 +18,7 @@ mybatis-plus:
     # 数据库相关配置
     db-config:
       #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ASSIGN_ID:"", ASSIGN_UUID:"", NONE:"";
-      id-type: ASSIGN_ID
+      id-type: AUTO
       #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
       field-strategy: not_empty
       #驼峰下划线转换

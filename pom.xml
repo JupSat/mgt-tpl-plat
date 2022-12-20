@@ -5,86 +5,82 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.1.7.RELEASE</version>
+		<relativePath/>
 	</parent>
 	<groupId>com.mgt.plat</groupId>
 	<artifactId>mgt-tpl-plat</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mgt-tpl-plat</name>
 	<description>a backend for vue-mgt-tpl</description>
+
 	<properties>
-		<java.version>17</java.version>
+		<!-- <java.version>17</java.version>-->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<mybatis-plus.version>3.5.2</mybatis-plus.version>
+		<lombok.version>1.18.21</lombok.version>
+		<mysql.version>8.0.13</mysql.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- lombok -->
+		<!--简化实体类-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>1.18.22</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		<!-- mysql -->
+		<!--MySQL驱动-->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+			<version>8.0.11</version>
 		</dependency>
-		<!-- mybatis-plus-->
+		<!--mybatis-plus启动器-->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
-			<version>3.5.2</version>
+			<version>3.0.5</version>
+		</dependency>
+		<!--spring-boot-test-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>3.0.0</version>
+			<scope>test</scope>
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<groupId>org.junit.vintage</groupId>-->
+<!--					<artifactId>junit-vintage-engine</artifactId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>**/*.yml</include>
-					<include>**/*.properties</include>
-					<include>**/*.xml</include>
-				</includes>
-				<filtering>false</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<includes>
-					<include>**/*.yml</include>
-					<include>**/*.properties</include>
-					<include>**/*.xml</include>
-				</includes>
-				<filtering>false</filtering>
-			</resource>
-		</resources>
 	</build>
-
 
 </project>
