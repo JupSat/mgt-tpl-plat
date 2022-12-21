@@ -2,6 +2,7 @@ package com.mgt.plat.service;
 
 import com.mgt.plat.entity.User;
 import com.mgt.plat.utils.ResultBean;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * package name：com.mgt.plat.service.user
@@ -11,7 +12,9 @@ import com.mgt.plat.utils.ResultBean;
  * modified content：
  **/
 public interface UserService {
-    ResultBean register(User user);
+    Integer register(User user);
 
     User findByUserName(String username);
+
+    User findUser(String username, String password);
 }

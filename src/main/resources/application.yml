@@ -1,6 +1,6 @@
 # Tomcat
 server:
-port: 8080
+  port: 8082
 
 #spring
 spring:
@@ -11,7 +11,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis-plus:
-  mapper-locations: com.mgt.plat.mapper.*.xml
+  mapper-locations: classpath:mapper/*.xml
   configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.mgt.plat.entity
   global-config:

@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mgt.plat.entity.User;
 import com.mgt.plat.mapper.UserMapper;
 import com.mgt.plat.service.UserService;
+import com.mgt.plat.utils.CodeBean;
 import com.mgt.plat.utils.ResultBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -24,22 +26,28 @@ import java.util.List;
     private UserMapper userMapper;
 
     @Override
-    public ResultBean register(User user) {
+    public Integer register(User user) {
         if(!ObjectUtils.isEmpty(this.findByUserName(user.getUsername()))){
-            return ResultBean.warn("用户名已存在");
+            return 3;
         }
         user.setPassword(user.getPassword());
         int insert = userMapper.insert(user);
         System.out.println(user);
+        CodeBean codeBean = new CodeBean();
         if(insert >=0){
-            return ResultBean.ok("注册成功username="+user.getUsername(),user);
+            return 1;
         }else{
-            return ResultBean.error("创建失败！");
+           return  2;
         }
     }
 
     @Override
     public User findByUserName(String username) {
-       return userMapper.queryUserByUsername(username);
+        return userMapper.queryUserByUsername(username);
     }
+
+    @Override
+    public User findUser(String username,String password) {
+        return userMapper.queryUser(username,password);
+     }
 }

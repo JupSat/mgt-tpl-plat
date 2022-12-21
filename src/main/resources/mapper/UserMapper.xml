@@ -24,4 +24,16 @@
         WHERE u.username = #{username}
     </select>
 
+    <select id="queryUser" parameterType="string" resultMap="userMap">
+        SELECT
+        u.id uid,
+        u.username,
+        u.avatar,
+        u.email,
+        u.description
+        FROM
+        user_info u
+        WHERE u.username = #{username} and u.password = #{password}
+    </select>
+
 </mapper>

@@ -3,6 +3,7 @@ package com.mgt.plat.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mgt.plat.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * package name：com.mgt.plat.mapper
@@ -13,5 +14,9 @@ import org.apache.ibatis.annotations.Mapper;
  **/
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+
     User queryUserByUsername(String name);
+
+    User queryUser(@Param("username") String username, @Param("password")String password);
+
 }
