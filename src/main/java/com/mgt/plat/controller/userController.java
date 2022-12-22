@@ -6,10 +6,7 @@ import com.mgt.plat.utils.CodeBean;
 import com.mgt.plat.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -86,7 +83,7 @@ public class userController {
         }
     }
 
-    @RequestMapping("/logout")
+    @PostMapping("/logout")
     @ResponseBody
     public ResultBean logout() {
         try {
@@ -96,4 +93,23 @@ public class userController {
             return ResultBean.error("退出失败",e.getMessage());
          }
      }
+
+    @PostMapping("/resetPwd")
+    @ResponseBody
+    public ResultBean resetPwd(@RequestBody HashMap<String, String> params) {
+        String email = params.get("email");
+        String password = params.get("password");
+        int key = userService.updUserPwd(email, password);
+         try {
+            System.out.println(key);
+             if (key > 0) {
+                 return ResultBean.ok("密码修改成功！");
+            } else {
+                 return ResultBean.ok("密码修改失败！");
+            }
+         } catch (Exception e) {
+            e.printStackTrace();
+            return ResultBean.error("修改失败",e.getMessage());
+        }
+    }
 }

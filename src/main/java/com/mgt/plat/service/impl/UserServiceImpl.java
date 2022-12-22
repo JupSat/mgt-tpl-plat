@@ -1,17 +1,12 @@
 package com.mgt.plat.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mgt.plat.entity.User;
 import com.mgt.plat.mapper.UserMapper;
 import com.mgt.plat.service.UserService;
 import com.mgt.plat.utils.CodeBean;
-import com.mgt.plat.utils.ResultBean;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-
-import java.util.List;
 
 /**
  * package name：com.mgt.plat.service.impl
@@ -50,4 +45,9 @@ import java.util.List;
     public User findUser(String username,String password) {
         return userMapper.queryUser(username,password);
      }
+
+    @Override
+    public int updUserPwd(String email, String password) {
+        return userMapper.updUserPwd(email, password);
+    }
 }
