@@ -29,10 +29,8 @@ public class CaptchaController {
             CaptchaBean captchaBean = new CaptchaBean();
             String BASE_NUMBER = "0123456789";
             String captcha = captchaBean.randomString(BASE_NUMBER, 6);
-            String base64 = captchaBean.produceImage(captcha);
-            System.out.println(captcha);
-            System.out.println(base64);
-            return ResultBean.ok("获取验证码成功", base64);
+            captchaBean.createImage(captcha);
+            return ResultBean.ok("获取验证码成功", captchaBean);
         } catch (Exception e) {
             logger.error("获取验证码失败", e);
             return  ResultBean.ok("获取验证码失败");
