@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * package name：com.mgt.plat.controller
  * description：验证码生成获取与校验
@@ -24,12 +26,13 @@ public class CaptchaController {
      */
     @PostMapping("/getCaptcha")
     @ResponseBody
-    public ResultBean getCaptcha() {
+    public ResultBean getCaptcha(HttpSession session) {
         try {
             CaptchaBean captchaBean = new CaptchaBean();
             String BASE_NUMBER = "0123456789";
             String captcha = captchaBean.randomString(BASE_NUMBER, 6);
             captchaBean.createImage(captcha);
+            session.setAttribute("captchaKey",captcha);
             return ResultBean.ok("获取验证码成功", captchaBean);
         } catch (Exception e) {
             logger.error("获取验证码失败", e);

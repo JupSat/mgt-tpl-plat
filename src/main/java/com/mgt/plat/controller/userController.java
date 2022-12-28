@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 /**
@@ -60,26 +61,32 @@ public class userController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResultBean login(@RequestBody HashMap<String, String> params) {
+    public ResultBean login(@RequestBody HashMap<String, String> params, HttpSession session) {
         String username = params.get("username");
         String password = params.get("password");
+
+        CodeBean codeBean = new CodeBean();
+        String captchaVal = (String) session.getAttribute("captchaKey");
+        String captcha = params.get("captcha");
+        if (!captcha.equals(captchaVal)) {
+            codeBean.setCode(3);
+            codeBean.setMsg("验证码错误！");
+            return ResultBean.ok("验证码错误！", codeBean);
+        }
+
         try {
             User user = userService.findUser(username, password);
-            System.out.println(user);
-            CodeBean codeBean = new CodeBean();
             if (user != null) {
                 codeBean.setCode(1);
                 codeBean.setMsg("登录成功！");
             } else {
-                codeBean.setCode(0);
-                codeBean.setMsg("登录失败！");
+                codeBean.setCode(2);
+                codeBean.setMsg("用户名或密码错误！");
             }
             return ResultBean.ok(codeBean.getMsg(), codeBean);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(e.getMessage());
-            System.out.println("用户名或密码错误!");
-            return ResultBean.error("用户名或密码错误！");
+            return ResultBean.error("程序异常！");
         }
     }
 
