@@ -4,8 +4,12 @@ import com.mgt.plat.entity.User;
 import com.mgt.plat.service.UserService;
 import com.mgt.plat.utils.CodeBean;
 import com.mgt.plat.utils.ResultBean;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -62,23 +66,41 @@ public class userController {
     @PostMapping("/login")
     @ResponseBody
     public ResultBean login(@RequestBody HashMap<String, String> params, HttpSession session) {
-        String username = params.get("username");
-        String password = params.get("password");
+        String username = params.get("username").trim();
+        String password = params.get("password").trim();
 
         CodeBean codeBean = new CodeBean();
+        if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password) ){
+            codeBean.setMsg("用户名或密码不能为空！");
+            return ResultBean.ok(codeBean.getMsg(), codeBean);
+        }
+
         String captchaVal = (String) session.getAttribute("captchaKey");
-        String captcha = params.get("captcha");
+        String captcha = params.get("captcha").trim();
+        if(StringUtils.isEmpty(captcha)){
+            codeBean.setMsg("验证码不能为空！");
+            return ResultBean.ok(codeBean.getMsg(), codeBean);
+        }
+
         if (!captcha.equals(captchaVal)) {
             codeBean.setCode(3);
             codeBean.setMsg("验证码错误！");
             return ResultBean.ok("验证码错误！", codeBean);
         }
 
+        //获取主体对象
+        Subject subject = SecurityUtils.getSubject();
+
+        // 获得token
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        subject.login(token);
+
         try {
             User user = userService.findUser(username, password);
             if (user != null) {
                 codeBean.setCode(1);
                 codeBean.setMsg("登录成功！");
+                session.setAttribute("loginUser", user);
             } else {
                 codeBean.setCode(2);
                 codeBean.setMsg("用户名或密码错误！");
