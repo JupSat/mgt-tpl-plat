@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.apache.ibatis.mapping.FetchType;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -59,4 +60,35 @@ public class User implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "Asia/ShangHai")
     @ApiModelProperty(value = "更新时间")
     private LocalDateTime updateTime;
+
+    private String salt;//加密密码的盐
+
+    public String salt() {
+        return salt;
+    }
+
+    public User setSalt(String salt) {
+        this.salt = salt;
+        return this;
+    }
+
+    private byte state;// 用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户 , 1:正常状态, 2：用户被锁定.
+
+    public byte state() {
+        return state;
+    }
+
+    public User setState(byte state) {
+        this.state = state;
+        return this;
+    }
+
+    /**
+     * 密码盐.
+     * @return
+     */
+    public String getCredentialsSalt(){
+        return this.username+this.salt;
+    }
+    //重新对盐重新进行了定义，用户名+salt，这样就更加不容易被破解
 }

@@ -89,11 +89,11 @@ public class userController {
         }
 
         //获取主体对象
-        Subject subject = SecurityUtils.getSubject();
+//        Subject subject = SecurityUtils.getSubject();
 
         // 获得token
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        subject.login(token);
+//        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+//        subject.login(token);
 
         try {
             User user = userService.findUser(username, password);
