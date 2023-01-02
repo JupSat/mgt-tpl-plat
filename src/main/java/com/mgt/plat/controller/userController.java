@@ -3,10 +3,8 @@ package com.mgt.plat.controller;
 import com.mgt.plat.entity.User;
 import com.mgt.plat.service.UserService;
 import com.mgt.plat.utils.CodeBean;
+import com.mgt.plat.utils.EmailBean;
 import com.mgt.plat.utils.ResultBean;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -24,7 +22,7 @@ import java.util.HashMap;
  **/
 @Controller
 @RequestMapping("/user")
-public class userController {
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -61,7 +59,21 @@ public class userController {
             e.printStackTrace();
             return ResultBean.error("注册失败", e.getMessage());
         }
-     }
+    }
+
+    @PostMapping("/sendVerificationCodeToEmail")
+    @ResponseBody
+    public ResultBean sendAuthCodeEmail(@RequestBody HashMap<String, String> params) {
+        EmailBean emailBean = new EmailBean();
+        String email = params.get("email").trim();
+        int num = emailBean.sendAuthCodeToEmail(email);
+        if (num == 1) {
+            System.out.println("发送邮件完毕");
+            return ResultBean.ok("邮件发送成功，有效期为1分钟，请注意查收！", null);
+        } else {
+            return ResultBean.error("邮件发送失败!");
+        }
+    }
 
     @PostMapping("/login")
     @ResponseBody
