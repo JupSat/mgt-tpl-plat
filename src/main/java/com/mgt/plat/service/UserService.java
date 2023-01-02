@@ -19,6 +19,5 @@ public interface UserService {
 
     User findUser(String username, String password);
 
-    @Update("update user_info set password = #{password} where email = #{email}")
     int  updUserPwd(String email, String password);
 }

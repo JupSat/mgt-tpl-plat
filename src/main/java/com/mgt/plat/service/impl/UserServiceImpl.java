@@ -26,9 +26,8 @@ import org.springframework.util.ObjectUtils;
             return 3;
         }
         user.setPassword(user.getPassword());
-        int insert = userMapper.insert(user);
+        int insert = userMapper.insertUser(user);
         System.out.println(user);
-        CodeBean codeBean = new CodeBean();
         if(insert >=0){
             return 1;
         }else{

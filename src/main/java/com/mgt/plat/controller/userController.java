@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 /**
@@ -29,15 +30,26 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseBody
-    public ResultBean register(@RequestBody HashMap<String, String> params) {
+    public ResultBean register(@RequestBody HashMap<String, String> params, HttpSession session) {
         String username = params.get("username").trim();
         String password = params.get("password").trim();
         String email = params.get("email").trim();
+        String validCod = params.get("validCod").trim();
+
         Integer code;
         CodeBean codeBean = new CodeBean();
 
+        if (validCod.isEmpty()) {
+            return ResultBean.ok("验证码不能为空！");
+        }
+
+        String emailCode = (String) session.getAttribute("emailCode");
+        if (!validCod.equals(emailCode)) {
+            return ResultBean.error("验证码过期，请重新获取！");
+        }
+
         try {
-            code = userService.register(new User().setUsername(username).setPassword(password).setEmail(email));
+            code = userService.register(new User().setUsername(username).setPassword(password).setEmail(email).setCreateTime(LocalDateTime.now()));
             if(code == 1){
                 codeBean.setCode(1);
                 codeBean.setMsg("注册成功");
@@ -63,10 +75,12 @@ public class UserController {
 
     @PostMapping("/sendVerificationCodeToEmail")
     @ResponseBody
-    public ResultBean sendAuthCodeEmail(@RequestBody HashMap<String, String> params) {
+    public ResultBean sendAuthCodeEmail(@RequestParam("email") String email, HttpSession session) {
         EmailBean emailBean = new EmailBean();
-        String email = params.get("email").trim();
-        int num = emailBean.sendAuthCodeToEmail(email);
+        if (email.isEmpty()) {
+            return ResultBean.error("邮箱不能为空!");
+        }
+        int num = emailBean.sendAuthCodeToEmail(email, session);
         if (num == 1) {
             System.out.println("发送邮件完毕");
             return ResultBean.ok("邮件发送成功，有效期为1分钟，请注意查收！", null);

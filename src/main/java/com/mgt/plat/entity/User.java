@@ -1,7 +1,5 @@
 package com.mgt.plat.entity;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -88,7 +86,7 @@ public class User implements Serializable {
      * @return
      */
     public String getCredentialsSalt(){
-        return this.username+this.salt;
+        return this.username + this.salt;
     }
     //重新对盐重新进行了定义，用户名+salt，这样就更加不容易被破解
 }

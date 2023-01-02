@@ -2,6 +2,7 @@ package com.mgt.plat.utils;
 
 import org.apache.commons.mail.HtmlEmail;
 
+import javax.servlet.http.HttpSession;
 import java.util.Random;
 
 /**
@@ -31,7 +32,7 @@ public class EmailBean {
      * @param email
      * @return
      */
-    public int sendAuthCodeToEmail(String email) {
+    public int sendAuthCodeToEmail(String email, HttpSession session) {
         try {
             HtmlEmail mail = new HtmlEmail();
             /*发送邮件的服务器 126邮箱为smtp.126.com,163邮箱为163.smtp.com，QQ为smtp.qq.com*/
@@ -48,6 +49,8 @@ public class EmailBean {
             mail.addTo(email);
             /*验证码*/
             String code = this.createRandomCode(6);
+            /*存储验证码（暂时存于session）*/
+            session.setAttribute("emailCode", code);
             /*设置邮件的主题*/
             mail.setSubject("注册验证码");
             /*设置邮件的内容*/
