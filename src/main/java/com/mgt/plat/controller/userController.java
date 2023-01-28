@@ -5,6 +5,7 @@ import com.mgt.plat.service.UserService;
 import com.mgt.plat.utils.CodeBean;
 import com.mgt.plat.utils.EmailBean;
 import com.mgt.plat.utils.ResultBean;
+import com.mgt.plat.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -125,6 +126,8 @@ public class UserController {
             User user = userService.findUser(username, password);
             if (user != null) {
                 codeBean.setCode(1);
+                String token = TokenUtil.createToken(username,password);
+                codeBean.setToken(token);
                 codeBean.setMsg("登录成功！");
                 session.setAttribute("loginUser", user);
             } else {

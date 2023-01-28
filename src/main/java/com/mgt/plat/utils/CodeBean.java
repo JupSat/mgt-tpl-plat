@@ -19,4 +19,5 @@ public class CodeBean {
     private Integer code = 0;
     private String msg;
     private Object result;
+    private Object token;
 }
