@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -143,14 +144,22 @@ public class UserController {
 
     @PostMapping("/logout")
     @ResponseBody
-    public ResultBean logout() {
+    public ResultBean logout(HttpServletRequest request) {
         try {
-            return ResultBean.ok("退出登录！");
+
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.removeAttribute("loginUser");
+            }
+            CodeBean codeBean = new CodeBean();
+            codeBean.setCode(1);
+            codeBean.setMsg("退出成功！");
+            return ResultBean.ok("退出登录！", codeBean);
         } catch (Exception e) {
             e.printStackTrace();
             return ResultBean.error("退出失败",e.getMessage());
          }
-     }
+    }
 
     @PostMapping("/resetPwd")
     @ResponseBody
@@ -158,7 +167,7 @@ public class UserController {
         String email = params.get("email");
         String password = params.get("password");
         int key = userService.updUserPwd(email, password);
-         try {
+        try {
             System.out.println(key);
              if (key > 0) {
                  return ResultBean.ok("密码修改成功！");
