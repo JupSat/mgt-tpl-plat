@@ -3,7 +3,6 @@ package com.mgt.plat.service.impl;
 import com.mgt.plat.entity.User;
 import com.mgt.plat.mapper.UserMapper;
 import com.mgt.plat.service.UserService;
-import com.mgt.plat.utils.CodeBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -16,22 +15,22 @@ import org.springframework.util.ObjectUtils;
  * modified content：
  **/
 @Service
- public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
     @Override
     public Integer register(User user) {
-        if(!ObjectUtils.isEmpty(this.findByUserName(user.getUsername()))){
+        if (!ObjectUtils.isEmpty(this.findByUserName(user.getUsername()))) {
             return 3;
         }
         user.setPassword(user.getPassword());
         int insert = userMapper.insertUser(user);
         System.out.println(user);
-        if(insert >=0){
+        if (insert >= 0) {
             return 1;
-        }else{
-           return  2;
+        } else {
+            return 2;
         }
     }
 
@@ -41,9 +40,9 @@ import org.springframework.util.ObjectUtils;
     }
 
     @Override
-    public User findUser(String username,String password) {
-        return userMapper.queryUser(username,password);
-     }
+    public User findUser(String username, String password) {
+        return userMapper.queryUser(username, password);
+    }
 
     @Override
     public int updUserPwd(String email, String password) {
