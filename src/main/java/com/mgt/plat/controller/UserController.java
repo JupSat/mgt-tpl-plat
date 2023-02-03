@@ -23,7 +23,7 @@ import java.util.HashMap;
  * modification time：2022-12-17 14:53
  * modified content：
  **/
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
@@ -31,7 +31,6 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    @ResponseBody
     public ResultBean register(@RequestBody HashMap<String, String> params, HttpSession session) {
         String username = params.get("username").trim();
         String password = params.get("password").trim();
@@ -76,7 +75,6 @@ public class UserController {
     }
 
     @PostMapping("/sendVerificationCodeToEmail")
-    @ResponseBody
     public ResultBean sendAuthCodeEmail(@RequestParam("email") String email, HttpSession session) {
         EmailBean emailBean = new EmailBean();
         if (email.isEmpty()) {
@@ -92,7 +90,6 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    @ResponseBody
     public ResultBean login(@RequestBody HashMap<String, String> params, HttpSession session) {
         String username = params.get("username").trim();
         String password = params.get("password").trim();
@@ -143,7 +140,6 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    @ResponseBody
     public ResultBean logout(HttpServletRequest request) {
         try {
 
@@ -158,23 +154,22 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResultBean.error("退出失败",e.getMessage());
-         }
+        }
     }
 
     @PostMapping("/resetPwd")
-    @ResponseBody
     public ResultBean resetPwd(@RequestBody HashMap<String, String> params) {
         String email = params.get("email");
         String password = params.get("password");
         int key = userService.updUserPwd(email, password);
         try {
             System.out.println(key);
-             if (key > 0) {
-                 return ResultBean.ok("密码修改成功！");
+            if (key > 0) {
+                return ResultBean.ok("密码修改成功！");
             } else {
-                 return ResultBean.ok("密码修改失败！");
+                return ResultBean.ok("密码修改失败！");
             }
-         } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResultBean.error("修改失败",e.getMessage());
         }
