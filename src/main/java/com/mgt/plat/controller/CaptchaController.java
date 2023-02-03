@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  * modification time：2022-12-26 20:08
  * modified content：
  **/
-@Controller
+@RestController
 @RequestMapping("/captcha")
 public class CaptchaController {
     private final static Logger logger = LoggerFactory.getLogger(CaptchaController.class);
@@ -25,7 +25,6 @@ public class CaptchaController {
      * 获取验证码
      */
     @PostMapping("/getCaptcha")
-    @ResponseBody
     public ResultBean getCaptcha(HttpSession session) {
         try {
             CaptchaBean captchaBean = new CaptchaBean();
