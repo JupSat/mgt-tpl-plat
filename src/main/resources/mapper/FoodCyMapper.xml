@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgt.plat.mapper.FoodCyMapper">
+
+
+    <insert id="addFoodCy" parameterType="List">
+        INSERT INTO  food_classify(food_category,food_code,food_redundancy) VALUES
+        <foreach collection="list" item="item"  separator=",">
+            (#{item.foodCategory},#{item.foodCode},#{item.foodRedundancy})
+        </foreach>
+    </insert>
+
+
+    <select id="findFoodCyList" resultType="com.mgt.plat.entity.FoodClassify" parameterType="com.mgt.plat.entity.FoodClassify">
+        SELECT food_classify.`food_id`AS 'food_id' ,food_classify.`food_category` AS food_category ,food_classify.`food_code` food_code,food_classify.`food_redundancy` AS  food_redundancy
+        FROM food_classify WHERE 1 = 1
+        <if test="foodId != null">
+            and food_id=#{foodId}
+        </if>
+        <if test="foodCategory != null">
+            and foodcategory=#{foodCategory}
+        </if>
+        <if test="foodCode != null">
+            and food_code=#{foodCode}
+        </if>
+        <if test="foodRedundancy != null">
+            and food_redundancy=#{foodRedundancy}
+        </if>
+    </select>
+
+    <update id="updateFoodCategoryByFoodId" parameterType="com.mgt.plat.entity.FoodClassify" >
+        UPDATE food_classify
+        <set>
+            <if test="foodCategory !=null and foodCategory.length()>0 ">food_category = #{foodCategory},</if>
+            <if test="foodCode !=null and foodCode.length()>0 ">food_code = #{foodCode},</if>
+            <if test="foodRedundancy !=null and foodRedundancy.length()>0 ">food_redundancy = #{foodRedundancy},</if>
+        </set>
+            where food_id=#{foodId}
+    </update>
+    <delete id="deleteByFoodCategoryById">
+        delete from food_classify where food_id in
+            <foreach collection="list" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+    </delete>
+    <select id="findCategoryExists" resultType="java.lang.Integer" parameterType="String">
+        SELECT count(1) from food_classify where food_category = #{category}
+    </select>
+</mapper>
