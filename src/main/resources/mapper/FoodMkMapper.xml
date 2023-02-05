@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgt.plat.mapper.FoodMkMapper">
+    <insert id="insertFoodMonicker"  parameterType="List">
+        INSERT INTO mgt_tpl.food_monicker(classify_id, food_name, food_picture, food_describe, food_redundancy) VALUES
+        <foreach collection="list" item="item"  separator=",">
+            (#{item.classifyId},#{item.foodName},#{item.foodPicture},#{item.foodDescribe},#{item.foodRedundancy})
+        </foreach>
+    </insert>
+    <update id="updateFoodMonickerByFoodId" parameterType="com.mgt.plat.entity.FoodMonicker">
+        UPDATE food_monicker
+        <set>
+            <if test="classifyId != 0">classify_id = #{classifyId},</if>
+            <if test="foodName != null ">food_name = #{foodName},</if>
+            <if test="foodPicture != null  and foodPicture.length()>0">food_picture = #{foodPicture},</if>
+            <if test="foodDescribe != null  and foodDescribe.length()>0 ">food_describe = #{foodDescribe},</if>
+            <if test="foodRedundancy != null  and foodRedundancy.length()>0">food_redundancy = #{foodRedundancy},</if>
+        </set>
+        where food_id = #{foodId}
+    </update>
+
+    <select id="findMonickerById" resultType="com.mgt.plat.entity.FoodMonicker" parameterType="java.lang.Integer">
+        SELECT food_monicker.`food_id` AS foodId,food_monicker.`classify_id` AS classifyId,
+               food_monicker.`food_name` AS foodName,food_monicker.`food_picture` AS foodPicture,
+               food_monicker.`food_describe` AS foodDescribe, food_monicker.`food_redundancy` AS foodRedundancy FROM food_monicker WHERE classify_id =#{number}
+    </select>
+
+    <delete id="deleteFoodMonickerById" parameterType="list">
+        delete from food_monicker where food_id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
