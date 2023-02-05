@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mgt.plat.mapper.PurchaseRcdMapper">
+    <insert id="addPurchaseRcd" parameterType="List">
+        INSERT purchase_records
+        (purchaseDate, foodNameId, foodCatalog, unit, num, unitPrice, budgetary, purchaseNum, purchasePrice, purchaseCost, grossProfit, vendor, purchaser, note, create_time, update_time)
+        VALUES
+        <foreach collection="list" item="item"  separator=",">
+            (#{item.purchaseDate},#{item.foodNameId},#{item.foodCatalog},#{item.unit},#{item.num},#{item.unitPrice},
+            #{item.budgetary},#{item.purchaseNum},#{item.purchasePrice},#{item.purchaseCost},#{item.grossProfit},#{item.vendor},
+            #{item.purchaser},#{item.note},#{item.create_time},#{item.update_time})
+        </foreach>
+    </insert>
+
+    <select id="findPurchaseRcdList" resultType="com.mgt.plat.entity.PurchaseRecord" parameterType="string">
+        SELECT id, purchaseDate, foodNameId, foodCatalog, unit, num, unitPrice, budgetary, purchaseNum, purchasePrice, purchaseCost, grossProfit, vendor, purchaser, note, create_time, update_time
+        FROM purchase_records p
+        WHERE 1 = 1
+        <if test="foodNameId != null">
+            and foodNameId = #{ foodNameId }
+        </if>
+        <if test="purchaseDate != null">
+            and purchaseDate = #{ purchaseDate }
+        </if>
+    </select>
+
+    <update id="updatePurchaseRcdById" parameterType="com.mgt.plat.entity.PurchaseRecord" >
+        UPDATE purchase_records
+        <set>
+            <if test="purchaseDate!= null and purchaseDate.length() ==10">purchaseDate = #{purchaseDate},</if>
+            <if test="foodNameId !=null">foodNameId = #{foodNameId},</if>
+            <if test="foodCatalog !=null">foodCatalog = #{foodCatalog},</if>
+            <if test="unit!= null">unit = #{unit},</if>
+            <if test="num !=null">num = #{num},</if>
+            <if test="unitPrice !=null">unitPrice = #{unitPrice},</if>
+
+            <if test="budgetary!= null">budgetary = #{budgetary},</if>
+            <if test="purchaseNum !=null">purchaseNum = #{purchaseNum},</if>
+            <if test="purchasePrice !=null">purchasePrice = #{purchasePrice},</if>
+            <if test="purchaseCost!= null">purchaseCost = #{purchaseCost},</if>
+            <if test="grossProfit !=null">grossProfit = #{grossProfit},</if>
+            <if test="purchasePrice !=null">vendor = #{vendor},</if>
+
+            <if test="purchaser!= null">purchaser = #{purchaser},</if>
+            <if test="grossProfit !=null">note = #{note},</if>
+            <if test="update_time !=null">update_time = #{update_time}</if>
+         </set>
+        where id=#{id}
+    </update>
+    <delete id="deletePurchaseRcdById"  parameterType="Number" >
+        DELETE FROM purchase_records WHERE id=#{ id };
+    </delete>
+    <select id="findPurchaseRcdExisted" resultType="java.lang.Integer" parameterType="String">
+        SELECT count(1) from purchase_records where foodName = #{foodName}
+    </select>
+</mapper>
