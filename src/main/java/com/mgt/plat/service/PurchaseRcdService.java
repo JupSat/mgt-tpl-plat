@@ -18,7 +18,7 @@ public interface PurchaseRcdService {
 
     ResultBean updatePurchaseRecord(PurchaseRecord purchaseRecord);
 
-    ResultBean findPurchaseRecordById(Integer number);
+    ResultBean findPurchaseRecordById(Integer id);
 
-    ResultBean findPurchaseRecordList(String foodName, String purchaseDate);
+    ResultBean findPurchaseRecordList(String foodNameId, String purchaseDate);
 }
