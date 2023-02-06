@@ -14,11 +14,11 @@ import java.util.List;
 public interface PurchaseRcdService {
     ResultBean insertPurchaseRecord(List<PurchaseRecord> purchaseRecord);
 
-    ResultBean deletePurchaseRecord(Integer number);
+    ResultBean deletePurchaseRecord(Integer id);
 
     ResultBean updatePurchaseRecord(PurchaseRecord purchaseRecord);
 
     ResultBean findPurchaseRecordById(Integer id);
 
-    ResultBean findPurchaseRecordList(String foodNameId, String purchaseDate);
+    ResultBean findPurchaseRecordList(String foodName, String purchaseDate);
 }

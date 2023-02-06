@@ -3,36 +3,36 @@
 <mapper namespace="com.mgt.plat.mapper.PurchaseRcdMapper">
 	<insert id="addPurchaseRcd" parameterType="List">
 		INSERT purchase_records
-		(purchaseDate, foodNameId, foodCatalog, unit, num, unitPrice, budgetary, purchaseNum, purchasePrice, purchaseCost, grossProfit, vendor, purchaser, note)
+		(purchase_date, food_name, food_catalog, unit, num, unit_price, budgetary, purchase_num, purchase_price, purchase_cost, gross_profit, vendor, purchaser, note)
 		VALUES
 		<foreach collection="list" item="item" separator=",">
-			(#{item.purchaseDate},#{item.foodNameId},#{item.foodCatalog},#{item.unit},#{item.num},#{item.unitPrice},
+			(#{item.purchaseDate},#{item.foodName},#{item.foodCatalog},#{item.unit},#{item.num},#{item.unitPrice},
 			#{item.budgetary},#{item.purchaseNum},#{item.purchasePrice},#{item.purchaseCost},#{item.grossProfit},#{item.vendor},
 			#{item.purchaser},#{item.note})
 		</foreach>
 	</insert>
 	<select id="findPurchaseRcdList" resultType="com.mgt.plat.entity.PurchaseRecord">
-		SELECT id, purchaseDate, foodNameId, foodCatalog, unit, num, unitPrice, budgetary, purchaseNum, purchasePrice, purchaseCost, grossProfit, vendor, purchaser, note, createTime, updateTime
+		SELECT id, purchase_date, food_name, food_catalog, unit, num, unit_price, budgetary, purchase_num, purchase_price, purchase_cost, gross_profit, vendor, purchaser, note, create_time, update_time
 		FROM purchase_records
 		WHERE 1 = 1
-		<if test="foodNameId != null and foodNameId.length()>0">
-			and foodNameId = #{ foodNameId }
+		<if test="foodName != null and foodName.length()>0">
+			and food_name = #{ foodName }
 		</if>
 		<if test="purchaseDate != null and purchaseDate.length()>0">
-			and purchaseDate = #{ purchaseDate }
+			and purchase_date = #{ purchaseDate }
 		</if>
 	</select>
 	<update id="updatePurchaseRcdById" parameterType="com.mgt.plat.entity.PurchaseRecord">
 		UPDATE purchase_records
 		<set>
 			<if test="purchaseDate!= null">
-				purchaseDate = #{purchaseDate},
+				purchase_date = #{ purchaseDate },
 			</if>
-			<if test="foodNameId !=null">
-				foodNameId = #{foodNameId},
+			<if test="foodName !=null">
+				food_name = #{ foodName },
 			</if>
 			<if test="foodCatalog !=null">
-				foodCatalog = #{foodCatalog},
+				food_catalog = #{foodCatalog},
 			</if>
 			<if test="unit!= null">
 				unit = #{unit},
@@ -41,24 +41,24 @@
 				num = #{num},
 			</if>
 			<if test="unitPrice !=null">
-				unitPrice = #{unitPrice},
+				unit_price = #{unitPrice},
 			</if>
 			<if test="budgetary!= null">
 				budgetary = #{budgetary},
 			</if>
 			<if test="purchaseNum !=null">
-				purchaseNum = #{purchaseNum},
+				purchase_num = #{purchaseNum},
 			</if>
 			<if test="purchasePrice !=null">
-				purchasePrice = #{purchasePrice},
+				purchase_price = #{purchasePrice},
 			</if>
 			<if test="purchaseCost!= null">
-				purchaseCost = #{purchaseCost},
+				purchase_cost = #{purchaseCost},
 			</if>
 			<if test="grossProfit !=null">
-				grossProfit = #{grossProfit},
+				gross_profit = #{grossProfit},
 			</if>
-			<if test="purchasePrice !=null">
+			<if test="vendor !=null">
 				vendor = #{vendor},
 			</if>
 			<if test="purchaser!= null">

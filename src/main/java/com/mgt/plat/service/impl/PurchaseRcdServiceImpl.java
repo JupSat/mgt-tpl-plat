@@ -35,9 +35,9 @@ import java.util.List;
      }
 
     @Override
-    public ResultBean deletePurchaseRecord(Integer number) {
+    public ResultBean deletePurchaseRecord(Integer id) {
         try {
-            Integer type = purchaseRcdMapper.deletePurchaseRcdById(number);
+            Integer type = purchaseRcdMapper.deletePurchaseRcdById(id);
             if (type>0){
                 return ResultBean.ok("删除成功!");
             }
@@ -63,9 +63,9 @@ import java.util.List;
     }
 
     @Override
-    public ResultBean findPurchaseRecordList(String foodNameId, String purchaseDate) {
+    public ResultBean findPurchaseRecordList(String foodName, String purchaseDate) {
         try{
-            List<PurchaseRecord> purchaseRecordList = purchaseRcdMapper.findPurchaseRcdList(foodNameId, purchaseDate);
+            List<PurchaseRecord> purchaseRecordList = purchaseRcdMapper.findPurchaseRcdList(foodName, purchaseDate);
             if (purchaseRecordList.size()>0){
                 return ResultBean.ok("查询成功!",purchaseRecordList);
             }else{
