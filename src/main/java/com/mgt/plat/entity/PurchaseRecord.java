@@ -20,7 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class PurchaseRecord {
     private long id;
-    private Date purchaseDate;
+    private String purchaseDate;
     private String foodNameId;
     private String foodCatalog ;
     private String unit;

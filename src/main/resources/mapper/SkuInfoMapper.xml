@@ -30,7 +30,7 @@
         </set>
         where id=#{id}
     </update>
-    <delete id="deleteSkuInfoById"  parameterType="Number" >
+    <delete id="deleteSkuInfoById"  >
         DELETE FROM sku_info WHERE id= #{ id };
     </delete>
 </mapper>
