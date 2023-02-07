@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FoodMonicker {
 
-  private long foodId;
+  private long id;
   private long classifyId;
   private String foodName;
   private String foodPicture;
   private String foodDescribe;
-  private String foodRedundancy;
+  private String redundancy;
 }

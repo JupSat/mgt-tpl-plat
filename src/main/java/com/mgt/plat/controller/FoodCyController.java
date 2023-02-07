@@ -37,9 +37,14 @@ public class FoodCyController {
         foodCyService.updateFoodCategoryByFoodId(foodClassify);
         return foodCyService.updateFoodCategoryByFoodId(foodClassify);
     }
+//    @PostMapping("/delete")
+//    public ResultBean deleteByFoodCategory(@RequestBody List<Integer> list){
+//        return foodCyService.deleteByFoodCategoryById(list);
+//    }
+
     @PostMapping("/delete")
-    public ResultBean deleteByFoodCategory(@RequestBody List<Integer> list){
-        return foodCyService.deleteByFoodCategoryById(list);
+    public ResultBean deleteIngredientCategoryById(@RequestParam("id") Integer id){
+        return foodCyService.deleteIngredientCategoryById(id);
     }
     @GetMapping("/exists")
     public ResultBean findCategory(@RequestParam String category){

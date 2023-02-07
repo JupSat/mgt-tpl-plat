@@ -15,10 +15,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FoodClassify {
-
-  private Long foodId;
-  private String foodCategory;
-  private String foodCode;
-  private String foodRedundancy;
+  private Long id;
+  private String ingredientCategory;
+  private String code;
+  private String redundancy;
 
 }
