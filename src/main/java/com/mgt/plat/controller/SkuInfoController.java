@@ -5,7 +5,6 @@ import com.mgt.plat.service.SkuInfoService;
 import com.mgt.plat.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -27,17 +26,16 @@ public class SkuInfoController {
     }
 
     @PostMapping("/find")
-    public ResultBean findSkuInfoList(@RequestBody HashMap<String, String> params){
-        String skuName = params.get("skuName");
-         return skuInfoService.findSkuInfoList(skuName);
+    public ResultBean findSkuInfoList(@RequestBody SkuInfo skuInfo){
+          return skuInfoService.findSkuInfoList(skuInfo);
     }
     @PostMapping("/update")
-    public ResultBean updatePurchaseRecord(@RequestBody SkuInfo skuInfo){
+    public ResultBean updateSkuInfo(@RequestBody SkuInfo skuInfo){
         skuInfoService.updateSkuInfoById(skuInfo);
         return skuInfoService.updateSkuInfoById(skuInfo);
     }
     @PostMapping("/delete")
-    public ResultBean deletePurchaseRecordById(@RequestParam("id") Integer id){
+    public ResultBean deleteSkuInfoById(@RequestParam("id") Integer id){
         return skuInfoService.deleteSkuInfo(id);
     }
 }

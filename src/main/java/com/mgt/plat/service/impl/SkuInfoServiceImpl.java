@@ -66,9 +66,9 @@ public class SkuInfoServiceImpl implements SkuInfoService {
 
 
     @Override
-    public ResultBean findSkuInfoList(String skuName) {
+    public ResultBean findSkuInfoList(SkuInfo skuInfo) {
         try{
-            List<SkuInfo> skuInfoList = skuInfoMapper.findSkuInfoList(skuName);
+            List<SkuInfo> skuInfoList = skuInfoMapper.findSkuInfoList(skuInfo);
             return ResultBean.ok("查询成功!",skuInfoList);
         }catch (Exception e){
             return ResultBean.ok("查询失败!");

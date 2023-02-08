@@ -18,8 +18,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class SkuInfo {
     private long id;
-    private long skuName;
-    private BigDecimal price;
-    private String img;
+    private String skuName;
+    private BigDecimal skuNum;
+    private String skuUnit;
+    private BigDecimal conversionRate;
+    private BigDecimal optionalPrice;
+    private BigDecimal unitPrice;
+    private BigDecimal amount;
     private String note;
 }

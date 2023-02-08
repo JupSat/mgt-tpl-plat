@@ -18,5 +18,5 @@ public interface SkuInfoService {
 
     ResultBean updateSkuInfoById(SkuInfo skuInfo);
 
-    ResultBean findSkuInfoList(String skuName);
+    ResultBean findSkuInfoList(SkuInfo skuInfo);
 }
