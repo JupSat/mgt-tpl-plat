@@ -16,7 +16,7 @@ import java.util.List;
  * modified content：
  **/
 @RestController
-@RequestMapping("/monicker")
+@RequestMapping("/ingredients")
 public class FoodMkController {
     @Autowired
     private FoodMkService foodMkService;
@@ -25,18 +25,28 @@ public class FoodMkController {
     public ResultBean insertFoodMonicker(@RequestBody List<FoodMonicker> list){
         return foodMkService.insertFoodMonicker(list);
     }
-    @GetMapping("/find")
-    public ResultBean findMonicke(@RequestParam Integer number){
-        return foodMkService.findMonickerById(number);
+//    @GetMapping("/find")
+//    public ResultBean findMonicke(@RequestParam Integer number){
+//        return foodMkService.findMonickerById(number);
+//    }
+
+    @PostMapping("/find")
+    public ResultBean findFoodCyList(@RequestBody FoodMonicker foodMonicker){
+        return foodMkService.findMonicker(foodMonicker);
     }
     @PostMapping("/update")
     public ResultBean updateFoodMonicker(@RequestBody FoodMonicker foodMonicker){
         foodMkService.updateFoodMonickerByFoodId(foodMonicker);
         return foodMkService.updateFoodMonickerByFoodId(foodMonicker);
     }
-    @PostMapping("delete")
-    public ResultBean deleteFoodMonicker(@RequestBody List<Integer> list){
-        return foodMkService.deleteFoodMonickerById(list);
+//    @PostMapping("delete")
+//    public ResultBean deleteFoodMonicker(@RequestBody List<Integer> list){
+//        return foodMkService.deleteFoodMonickerById(list);
+//    }
+
+    @PostMapping("/delete")
+    public ResultBean deleteIngredientCategoryById(@RequestParam("id") Integer id){
+        return foodMkService.deleteIngredientById(id);
     }
 
 }

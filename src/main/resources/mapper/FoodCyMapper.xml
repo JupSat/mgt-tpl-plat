@@ -17,13 +17,13 @@
         <if test="id != null">
             and id=#{id}
         </if>
-        <if test="ingredientCategory != null">
+        <if test="ingredientCategory != null and ingredientCategory.length()>0 ">
             and ingredient_category=#{ingredientCategory}
         </if>
         <if test="code != null">
             and  code=#{code}
         </if>
-        <if test="redundancy != null">
+        <if test="redundancy != null and redundancy.length()>0 ">
             and redundancy=#{redundancy}
         </if>
     </select>

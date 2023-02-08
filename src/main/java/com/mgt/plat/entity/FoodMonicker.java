@@ -14,11 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FoodMonicker {
-
   private long id;
-  private long classifyId;
-  private String foodName;
-  private String foodPicture;
-  private String foodDescribe;
-  private String redundancy;
+  private long catalogId;
+  private String ingredientName;
+  private String ingredientImg;
+  private String ingredientDesc;
+  private String ingredientRedundancy;
 }
