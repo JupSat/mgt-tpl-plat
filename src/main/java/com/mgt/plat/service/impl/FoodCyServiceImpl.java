@@ -64,6 +64,20 @@ public class FoodCyServiceImpl implements FoodCyService {
     }
 
     @Override
+    public ResultBean deleteIngredientCategoryById(Integer id) {
+        try {
+            Integer type = foodCyMapper.deleteIngredientCategoryById(id);
+            if (type>0){
+                return ResultBean.ok("删除成功!");
+            }
+        }catch (Exception e){
+            logger.error("删除失败!", e);
+            return ResultBean.ok("删除失败!");
+        }
+        return ResultBean.ok("无效ID!");
+    }
+
+    @Override
     public ResultBean deleteByFoodCategoryById(List<Integer> list) {
         try {
             Integer type = foodCyMapper.deleteByFoodCategoryById(list);

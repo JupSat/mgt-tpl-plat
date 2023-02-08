@@ -4,33 +4,38 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mgt.plat.mapper.SkuInfoMapper">
     <insert id="addSkuInfo" parameterType="List">
-        INSERT sku_info (skuName, price, img, note, create_time, update_time)
+        INSERT INTO sku_info(sku_name, sku_num, sku_unit, conversion_rate, optional_price, unit_price, amount, note)
         VALUES
         <foreach collection="list" item="item"  separator=",">
-            (#{item.skuName},#{item.price},#{item.img},#{item.note},#{item.create_time},#{item.update_time})
+            (#{item.skuName},#{item.skuNum},#{item.skuUnit},#{item.conversionRate},#{item.optionalPrice},
+            #{item.unitPrice},#{item.amount},#{item.note})
         </foreach>
     </insert>
     
-    <select id="findSkuInfoList" resultType="com.mgt.plat.entity.SkuInfo" parameterType="string">
-        SELECT id, skuName, price, img, note, create_time, update_time
-        FROM sku_info p
+    <select id="findSkuInfoList" resultType="com.mgt.plat.entity.SkuInfo">
+        SELECT id, sku_name, sku_num, sku_unit, conversion_rate, optional_price, unit_price, amount, note
+        FROM sku_info
         WHERE 1 = 1
-        <if test="skuName != null">
-            and skuName = #{ skuName }
+        <if test="skuName != null and skuName != ''">
+            and sku_name = #{ skuName }
         </if>
     </select>
 
     <update id="updateSkuInfoById" parameterType="com.mgt.plat.entity.SkuInfo" >
         UPDATE sku_info
         <set>
-            <if test="skuName!= null">skuName = #{skuName},</if>
-            <if test="price !=null">price = #{price},</if>
-            <if test="img !=null">img = #{img},</if>
+            <if test="skuName!= null">sku_name = #{skuName},</if>
+            <if test="skuNum !=null">sku_num = #{skuNum},</if>
+            <if test="skuUnit !=null">sku_unit = #{skuUnit},</if>
+            <if test="conversionRate !=null">conversion_rate = #{conversionRate},</if>
+            <if test="optionalPrice !=null">optional_price = #{optionalPrice},</if>
+            <if test="unitPrice !=null">unit_price = #{unitPrice},</if>
+            <if test="amount !=null">amount = #{amount},</if>
             <if test="note !=null">note = #{note}</if>
         </set>
         where id=#{id}
     </update>
-    <delete id="deleteSkuInfoById"  parameterType="Number" >
+    <delete id="deleteSkuInfoById"  >
         DELETE FROM sku_info WHERE id= #{ id };
     </delete>
 </mapper>

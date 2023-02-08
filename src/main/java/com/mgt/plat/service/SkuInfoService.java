@@ -14,9 +14,9 @@ import java.util.List;
 public interface SkuInfoService {
     ResultBean insertSkuInfo(List<SkuInfo> list);
 
-    ResultBean deleteSkuInfo(Integer number);
+    ResultBean deleteSkuInfo(Integer id);
 
     ResultBean updateSkuInfoById(SkuInfo skuInfo);
 
-    ResultBean findSkuInfoList(String skuName);
+    ResultBean findSkuInfoList(SkuInfo skuInfo);
 }

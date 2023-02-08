@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 /**
  * package name：com.mgt.plat.entity
  * description：Sku信息
@@ -16,8 +18,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SkuInfo {
     private long id;
-    private long skuName;
-    private Number price;
-    private String img;
+    private String skuName;
+    private BigDecimal skuNum;
+    private String skuUnit;
+    private BigDecimal conversionRate;
+    private BigDecimal optionalPrice;
+    private BigDecimal unitPrice;
+    private BigDecimal amount;
     private String note;
 }

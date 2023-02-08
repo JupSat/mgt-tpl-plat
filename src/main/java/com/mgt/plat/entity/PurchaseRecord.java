@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -19,18 +20,20 @@ import java.util.Date;
 @NoArgsConstructor
 public class PurchaseRecord {
     private long id;
-    private Date purchaseDate;
+    private String purchaseDate;
     private String foodName;
     private String foodCatalog ;
     private String unit;
-    private Number num;
-    private Number unitPrice;
-    private Number budgetary;
-    private Number purchaseNum;
-    private Number purchasePrice;
-    private Number  purchaseCost;
-    private Number grossProfit;
+    private BigDecimal num;
+    private BigDecimal unitPrice;
+    private BigDecimal budgetary;
+    private BigDecimal purchaseNum;
+    private BigDecimal purchasePrice;
+    private BigDecimal  purchaseCost;
+    private BigDecimal grossProfit;
     private String vendor;
     private String purchaser;
     private String note;
+    private Date createTime;
+    private Date updateTime;
 }

@@ -1,5 +1,6 @@
 package com.mgt.plat.service.impl;
 
+import com.mgt.plat.entity.FoodClassify;
 import com.mgt.plat.entity.FoodMonicker;
 import com.mgt.plat.mapper.FoodMkMapper;
 import com.mgt.plat.service.FoodMkService;
@@ -38,9 +39,9 @@ public class FoodMkServiceImpl implements FoodMkService {
     }
 
     @Override
-    public ResultBean findMonickerById(Integer number) {
+    public ResultBean findMonicker(FoodMonicker foodMonicker) {
         try{
-            List<FoodMonicker> list = foodMkMapper.findMonickerById(number);
+            List<FoodMonicker> list = foodMkMapper.findMonicker(foodMonicker);
             if (list.size()>0){
                 return ResultBean.ok("查询成功！",list);
             }
@@ -48,8 +49,6 @@ public class FoodMkServiceImpl implements FoodMkService {
             logger.error("系统异常!", e);
             return ResultBean.ok("系统异常！",null);
         }
-
-
         return ResultBean.ok("您查找的内容不存在！",null);
     }
 
@@ -67,10 +66,24 @@ public class FoodMkServiceImpl implements FoodMkService {
         return ResultBean.ok("修改失败，请检查字段合法性!","error");
     }
 
+//    @Override
+//    public ResultBean deleteFoodMonickerById(List<Integer> list) {
+//        try{
+//            Integer type = foodMkMapper.deleteFoodMonickerById(list);
+//            if (type>0){
+//                return ResultBean.ok("删除成功!","success");
+//            }
+//        }catch (Exception e){
+//            logger.error("系统异常!",e);
+//            return ResultBean.ok("系统异常！","error");
+//        }
+//        return ResultBean.ok("删除失败!","error");
+//    }
+
     @Override
-    public ResultBean deleteFoodMonickerById(List<Integer> list) {
+    public ResultBean deleteIngredientById(Integer id) {
         try{
-            Integer type = foodMkMapper.deleteFoodMonickerById(list);
+            Integer type = foodMkMapper.deleteIngredientById(id);
             if (type>0){
                 return ResultBean.ok("删除成功!","success");
             }

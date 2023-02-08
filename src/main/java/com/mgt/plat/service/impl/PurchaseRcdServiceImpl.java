@@ -26,6 +26,7 @@ import java.util.List;
     public ResultBean insertPurchaseRecord(List<PurchaseRecord> purchaseRecord) {
         try {
             purchaseRcdMapper.addPurchaseRcd(purchaseRecord);
+            System.out.print(purchaseRecord);
             return  ResultBean.ok("新增成功");
         }catch (Exception e){
             logger.error("新增失败!", e);
@@ -34,9 +35,9 @@ import java.util.List;
      }
 
     @Override
-    public ResultBean deletePurchaseRecord(Integer number) {
+    public ResultBean deletePurchaseRecord(Integer id) {
         try {
-            Integer type = purchaseRcdMapper.deletePurchaseRcdById(number);
+            Integer type = purchaseRcdMapper.deletePurchaseRcdById(id);
             if (type>0){
                 return ResultBean.ok("删除成功!");
             }
@@ -64,9 +65,9 @@ import java.util.List;
     @Override
     public ResultBean findPurchaseRecordList(String foodName, String purchaseDate) {
         try{
-            List<PurchaseRecord> foodList = purchaseRcdMapper.findPurchaseRcdList(foodName, purchaseDate);
-            if (foodList.size()>0){
-                return ResultBean.ok("查询成功!",foodList);
+            List<PurchaseRecord> purchaseRecordList = purchaseRcdMapper.findPurchaseRcdList(foodName, purchaseDate);
+            if (purchaseRecordList.size()>0){
+                return ResultBean.ok("查询成功!",purchaseRecordList);
             }else{
                 return ResultBean.ok("您查询的数据不存在!");
             }

@@ -19,11 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class TokenHandler implements HandlerInterceptor {
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)  throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
-        if (token != null){
+        if (token != null) {
             boolean result = TokenUtil.verify(token);
-            if(result){
+            if (result) {
                 log.info("经过拦截器");
                 return true;
             }

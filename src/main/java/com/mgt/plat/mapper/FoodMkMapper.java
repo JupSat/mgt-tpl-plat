@@ -3,6 +3,7 @@ package com.mgt.plat.mapper;
 import com.mgt.plat.entity.FoodClassify;
 import com.mgt.plat.entity.FoodMonicker;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 /**
@@ -14,11 +15,14 @@ import java.util.List;
  **/
 @Mapper
 public interface FoodMkMapper {
-    List<FoodMonicker> findMonickerById(Integer number);
-
+//    List<FoodMonicker> findMonicker(@Param("ingredientName") String ingredientName, @Param("ingredientCategory") String ingredientCategory);
+    List<FoodMonicker> findMonicker(FoodMonicker foodMonicker);
     Integer insertFoodMonicker(List<FoodMonicker> list);
 
     Integer updateFoodMonickerByFoodId(FoodMonicker foodMonicker);
 
-    Integer deleteFoodMonickerById(List<Integer> list);
+//    Integer deleteFoodMonickerById(List<Integer> list);
+
+    Integer deleteIngredientById(Integer id);
+
 }

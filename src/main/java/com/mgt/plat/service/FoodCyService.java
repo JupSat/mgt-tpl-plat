@@ -18,7 +18,10 @@ public interface FoodCyService {
 
     ResultBean updateFoodCategoryByFoodId(FoodClassify foodClassify);
 
+    ResultBean deleteIngredientCategoryById(Integer id);
+
     ResultBean deleteByFoodCategoryById(List<Integer> list);
+
 
     ResultBean findCategoryExists(String category);
 }

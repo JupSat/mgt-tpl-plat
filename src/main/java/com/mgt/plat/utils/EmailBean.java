@@ -40,9 +40,9 @@ public class EmailBean {
             /*不设置发送的消息有可能是乱码*/
             mail.setCharset("UTF-8");
             /*IMAP/SMTP服务的密码*/
-            mail.setAuthentication("xxx@qq.com", "xxxxx");
+            mail.setAuthentication("fyadxz@qq.com", "rxetybyldpvkdgid");
             /*发送邮件的邮箱和发件人*/
-            mail.setFrom("XXX@qq.com", "若甫");
+            mail.setFrom("fyadxz@qq.com", "若甫");
             /*使用安全链接*/
             mail.setSSLOnConnect(true);
             /*接收的邮箱*/

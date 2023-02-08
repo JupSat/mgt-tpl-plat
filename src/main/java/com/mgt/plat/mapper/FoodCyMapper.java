@@ -22,5 +22,7 @@ public interface FoodCyMapper extends BaseMapper<FoodClassify> {
 
     Integer deleteByFoodCategoryById(List<Integer> list);
 
+    Integer deleteIngredientCategoryById(Integer id);
+
     Integer findCategoryExists(String category);
 }

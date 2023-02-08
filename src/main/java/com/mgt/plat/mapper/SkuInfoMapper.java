@@ -13,7 +13,7 @@ import java.util.List;
 public interface SkuInfoMapper {
     void addSkuInfo(List<SkuInfo> list);
 
-    List<SkuInfo> findSkuInfoList(String skuName);
+    List<SkuInfo> findSkuInfoList(SkuInfo skuInfo);
 
     Integer updateSkuInfoById(SkuInfo skuInfo);
 

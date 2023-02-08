@@ -1,6 +1,8 @@
 package com.mgt.plat.mapper;
 
 import com.mgt.plat.entity.PurchaseRecord;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ import java.util.List;
 public interface PurchaseRcdMapper {
     void addPurchaseRcd(List<PurchaseRecord> purchaseRecord);
 
-    List<PurchaseRecord> findPurchaseRcdList(String foodName, String purchaseDate);
+    List<PurchaseRecord> findPurchaseRcdList(@Param("foodName") String foodName, @Param("purchaseDate") String purchaseDate);
 
     Integer updatePurchaseRcdById(PurchaseRecord purchaseRecord);
 
