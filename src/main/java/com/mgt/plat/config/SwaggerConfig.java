@@ -1,14 +1,14 @@
 package com.mgt.plat.config;
 
- import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.service.ApiInfo;
- import springfox.documentation.service.Contact;
- import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
- import java.util.ArrayList;
+import java.util.ArrayList;
 
 /**
  * package name：com.mgt.plat.config
@@ -22,6 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     /**
      * 配置docket 的bean实例
+     *
      * @return new Docket
      */
     @Bean
@@ -31,6 +32,7 @@ public class SwaggerConfig {
 
     /**
      * 配置swagger信息
+     *
      * @return new ApiInfo
      */
     private ApiInfo apiInfo() {

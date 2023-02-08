@@ -5,7 +5,9 @@ import com.mgt.plat.utils.ResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,11 +30,11 @@ public class CaptchaController {
     public ResultBean getCaptcha(HttpSession session) {
         try {
             CaptchaBean captchaBean = new CaptchaBean();
-            session.setAttribute("captchaKey",captchaBean.getCaptcha());
+            session.setAttribute("captchaKey", captchaBean.getCaptcha());
             return ResultBean.ok("获取验证码成功", captchaBean);
         } catch (Exception e) {
             logger.error("获取验证码失败", e);
-            return  ResultBean.ok("获取验证码失败");
+            return ResultBean.ok("获取验证码失败");
         }
     }
 }

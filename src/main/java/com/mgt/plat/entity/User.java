@@ -1,16 +1,17 @@
 package com.mgt.plat.entity;
-import com.baomidou.mybatisplus.annotation.*;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.apache.ibatis.mapping.FetchType;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value="User对象", description="User对象")
+@ApiModel(value = "User对象", description = "User对象")
 @TableName(value = "user_info")
 public class User implements Serializable {
     private static final long serialVersionUID = 7523949335132070505L;
@@ -51,11 +52,11 @@ public class User implements Serializable {
     @ApiModelProperty(value = "用户描述")
     private String description;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "Asia/ShangHai")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/ShangHai")
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "Asia/ShangHai")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/ShangHai")
     @ApiModelProperty(value = "更新时间")
     private LocalDateTime updateTime;
 
@@ -70,7 +71,10 @@ public class User implements Serializable {
         return this;
     }
 
-    private byte state;// 用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户 , 1:正常状态, 2：用户被锁定.
+    /**
+     * 用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户 , 1:正常状态, 2：用户被锁定.
+     */
+    private byte state;
 
     public byte state() {
         return state;
@@ -83,10 +87,12 @@ public class User implements Serializable {
 
     /**
      * 密码盐.
+     *
      * @return
      */
-    public String getCredentialsSalt(){
+    public String getCredentialsSalt() {
+        //重新对盐重新进行了定义，用户名+salt，这样就更加不容易被破解
         return this.username + this.salt;
     }
-    //重新对盐重新进行了定义，用户名+salt，这样就更加不容易被破解
+
 }

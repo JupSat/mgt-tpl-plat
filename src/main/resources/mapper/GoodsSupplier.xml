@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgt.plat.mapper.GoodsSupplierMapper">
+    <resultMap id="goodsSupplier" type="com.mgt.plat.entity.GoodsSupplier">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="contact" property="contact"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="remarks" property="remarks"/>
+    </resultMap>
+
+    <select id="querySupplierById" parameterType="string" resultMap="goodsSupplier">
+        SELECT u.id,
+               u.name,
+               u.address,
+               u.contact,
+               u.phone,
+               u.email,
+               u.remarks
+        FROM goods_supplier g
+        WHERE g.id = #{id}
+    </select>
+
+    <select id="querySupplierByName" parameterType="string" resultMap="goodsSupplier">
+        SELECT u.id,
+               u.name,
+               u.address,
+               u.contact,
+               u.phone,
+               u.email,
+               u.remarks
+        FROM goods_supplier g
+        WHERE g.name = #{name}
+    </select>
+
+
+    <insert id="batchInsertData" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO t_batch_data (
+        name,
+        address,
+        contact,
+        phone,
+        email,
+        remarks
+        ) VALUES
+        <foreach item="data" collection="list" separator=",">
+            (
+            #{data.name},
+            #{data.address},
+            #{data.contact},
+            #{data.phone},
+            #{data.email},
+            #{data.remarks}
+            )
+        </foreach>
+    </insert>
+
+</mapper>
