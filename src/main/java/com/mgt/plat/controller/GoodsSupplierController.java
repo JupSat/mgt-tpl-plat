@@ -2,6 +2,7 @@ package com.mgt.plat.controller;
 
 import com.mgt.plat.entity.GoodsSupplier;
 import com.mgt.plat.service.GoodsSupplierService;
+import com.mgt.plat.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,46 +15,45 @@ import java.util.List;
  * modification time：2023-02-02 19:45
  * modified content：
  **/
-@RestController("/supplier")
+@RestController
+@RequestMapping("/supplier")
 public class GoodsSupplierController {
 
     @Autowired
     private GoodsSupplierService goodsSupplierService;
 
     @PostMapping("/add")
-    public void addSupplier(@RequestBody GoodsSupplier goodsSupplier) {
-        goodsSupplierService.addSupplier(goodsSupplier);
+    public ResultBean addSupplier(@RequestBody GoodsSupplier goodsSupplier) {
+        return goodsSupplierService.addSupplier(goodsSupplier);
     }
 
-    @PostMapping("/batchadd")
-    public void batchAddSupplier(@RequestBody List<GoodsSupplier> goodsSupplierList) {
-        goodsSupplierService.batchAddSupplier(goodsSupplierList);
+    @PostMapping("/batchAdd")
+    public ResultBean batchAddSupplier(@RequestBody List<GoodsSupplier> goodsSupplierList) {
+        return  goodsSupplierService.batchAddSupplier(goodsSupplierList);
     }
 
-    @GetMapping("/finabyname")
-    public GoodsSupplier findByName(@RequestParam(value = "name") String name) {
+    @GetMapping("/findByName")
+    public ResultBean findByName(@RequestParam(value = "name") String name) {
         return goodsSupplierService.findByName(name);
     }
 
-    @GetMapping("/finabyid")
-    public GoodsSupplier findById(@RequestParam(value = "id") String id) {
+    @GetMapping("/finaById")
+    public ResultBean findById(@RequestParam(value = "id") String id) {
         return goodsSupplierService.findById(id);
     }
 
     @GetMapping("/finaAll")
-    public List<GoodsSupplier> findAllByName(@RequestParam(value = "name") String name) {
+    public ResultBean findAllByName(@RequestParam(value = "name") String name) {
         return goodsSupplierService.findAllByName(name);
     }
 
     @PutMapping("/update")
-    public boolean updateSupplier(@RequestBody GoodsSupplier goodsSupplier) {
+    public ResultBean updateSupplier(@RequestBody GoodsSupplier goodsSupplier) {
         return goodsSupplierService.updateSupplier(goodsSupplier);
     }
 
     @DeleteMapping("/delete")
-    public boolean deleteById(@RequestParam(value = "id") String id) {
-        return goodsSupplierService.deleteById(id) == 1;
+    public ResultBean deleteById(@RequestParam(value = "id") Long id) {
+        return goodsSupplierService.deleteById(id);
     }
-
-
 }
