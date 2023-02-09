@@ -15,10 +15,10 @@
         SELECT id,ingredient_category, code, redundancy
         FROM ingredient_catalog  WHERE 1 = 1
         <if test="id != null">
-            and id=#{id}
+            id=#{id}
         </if>
-        <if test="ingredientCategory != null and ingredientCategory.length()>0 ">
-            and ingredient_category=#{ingredientCategory}
+        <if test="ingredientCategory != null and ingredientCategory != ''">
+            and ingredient_category like "%"#{ingredientCategory}"%"
         </if>
         <if test="code != null">
             and  code=#{code}

@@ -42,7 +42,7 @@ public class GoodsSupplierController {
         return goodsSupplierService.findById(id);
     }
 
-    @GetMapping("/finaAll")
+    @GetMapping("/findAll")
     public ResultBean findAllByName(@RequestParam(value = "name") String name) {
         return goodsSupplierService.findAllByName(name);
     }
