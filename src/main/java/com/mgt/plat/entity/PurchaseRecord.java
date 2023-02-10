@@ -21,8 +21,8 @@ import java.util.Date;
 public class PurchaseRecord {
     private Long id;
     private String purchaseDate;
-    private String foodName;
-    private String foodCatalog ;
+    private Long ingredientId;
+    private Long ingredientCatalogId ;
     private String unit;
     private BigDecimal num;
     private BigDecimal unitPrice;

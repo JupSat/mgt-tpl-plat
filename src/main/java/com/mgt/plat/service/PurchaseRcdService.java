@@ -20,5 +20,5 @@ public interface PurchaseRcdService {
 
     ResultBean findPurchaseRecordById(Integer id);
 
-    ResultBean findPurchaseRecordList(String foodName, String purchaseDate);
+    ResultBean findPurchaseRecordList(String ingredientId, String purchaseDate);
 }

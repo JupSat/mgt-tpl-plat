@@ -63,9 +63,9 @@ import java.util.List;
     }
 
     @Override
-    public ResultBean findPurchaseRecordList(String foodName, String purchaseDate) {
+    public ResultBean findPurchaseRecordList(String ingredientId, String purchaseDate) {
         try{
-            List<PurchaseRecord> purchaseRecordList = purchaseRcdMapper.findPurchaseRcdList(foodName, purchaseDate);
+            List<PurchaseRecord> purchaseRecordList = purchaseRcdMapper.findPurchaseRcdList(ingredientId, purchaseDate);
             if (purchaseRecordList.size()>0){
                 return ResultBean.ok("查询成功!",purchaseRecordList);
             }else{
