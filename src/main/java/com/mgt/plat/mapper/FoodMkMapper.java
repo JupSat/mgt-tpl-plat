@@ -25,4 +25,5 @@ public interface FoodMkMapper {
 
     Integer deleteIngredientById(Integer id);
 
+    Integer findIngredientExisted(String ingredient);
 }

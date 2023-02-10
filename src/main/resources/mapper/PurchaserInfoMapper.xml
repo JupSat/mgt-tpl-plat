@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mgt.plat.mapper.PurchaserInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mgt.plat.entity.PurchaserInfo">
+        <id column="id" property="id" />
+        <result column="purchaser_name" property="purchaserName" />
+        <result column="purchaser_id" property="purchaserId" />
+        <result column="purchaser_phone" property="purchaserPhone" />
+        <result column="purchaser_email" property="purchaserEmail" />
+        <result column="purchaser_note" property="purchaserNote" />
+    </resultMap>
+
+    <select id="findPurchaserList" resultType="com.mgt.plat.entity.PurchaserInfo">
+        SELECT * FROM purchaser_info WHERE 1 = 1
+    </select>
+</mapper>

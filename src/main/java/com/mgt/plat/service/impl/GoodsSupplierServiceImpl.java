@@ -31,9 +31,16 @@ public class GoodsSupplierServiceImpl extends ServiceImpl<GoodsSupplierMapper, G
     @Override
     public ResultBean addSupplier(GoodsSupplier goodsSupplier) {
         try {
-            int num = goodsSupplierMapper.insert(goodsSupplier);;
-            if (num>0){
-                return ResultBean.ok("新增成功!",true);
+            QueryWrapper<GoodsSupplier> wrapper = new QueryWrapper<>();
+            wrapper.eq("name", goodsSupplier.getName());
+            GoodsSupplier gs = goodsSupplierMapper.selectOne(wrapper);
+            if (gs == null) {
+                int num = goodsSupplierMapper.insert(goodsSupplier);;
+                if (num>0){
+                    return ResultBean.ok("新增成功!",true);
+                }
+            }  else {
+                return ResultBean.warn(goodsSupplier.getName() + "已存在!");
             }
         }catch (Exception e){
 //            e.printStackTrace();

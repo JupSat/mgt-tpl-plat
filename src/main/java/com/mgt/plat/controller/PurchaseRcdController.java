@@ -28,9 +28,9 @@ public class PurchaseRcdController {
 
     @PostMapping("/find")
     public ResultBean findPurchaseRcdList(@RequestBody HashMap<String, String> params){
-        String foodName = params.get("foodName");
+        String ingredientId = params.get("ingredientId");
         String purchaseDate = params.get("purchaseDate");
-        return purchaseRcdService.findPurchaseRecordList(foodName,  purchaseDate);
+        return purchaseRcdService.findPurchaseRecordList(ingredientId,  purchaseDate);
     }
     @PostMapping("/update")
     public ResultBean updatePurchaseRecord(@RequestBody PurchaseRecord purchaseRcd){

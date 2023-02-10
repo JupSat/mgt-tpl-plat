@@ -46,7 +46,7 @@
     <delete id="deleteIngredientCategoryById">
         DELETE FROM ingredient_catalog WHERE id= #{ id };
     </delete>
-    <select id="findCategoryExists" resultType="java.lang.Integer" parameterType="String">
-        SELECT count(1) from ingredient_catalog where food_category = #{category}
+    <select id="findCategoryExisted" resultType="java.lang.Integer" parameterType="String">
+        SELECT count(1) from ingredient_catalog where ingredient_category = #{ingredientCategory}
     </select>
 </mapper>

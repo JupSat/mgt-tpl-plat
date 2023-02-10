@@ -23,5 +23,5 @@ public interface FoodCyService {
     ResultBean deleteByFoodCategoryById(List<Integer> list);
 
 
-    ResultBean findCategoryExists(String category);
+    ResultBean findCategoryExisted(String category);
 }

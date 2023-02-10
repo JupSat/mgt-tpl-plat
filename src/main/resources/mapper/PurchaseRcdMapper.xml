@@ -3,20 +3,20 @@
 <mapper namespace="com.mgt.plat.mapper.PurchaseRcdMapper">
 	<insert id="addPurchaseRcd" parameterType="List">
 		INSERT purchase_records
-		(purchase_date, food_name, food_catalog, unit, num, unit_price, budgetary, purchase_num, purchase_price, purchase_cost, gross_profit, vendor, purchaser, note)
+		(purchase_date, ingredient_id, ingredient_catalog_id, unit, num, unit_price, budgetary, purchase_num, purchase_price, purchase_cost, gross_profit, vendor, purchaser, note)
 		VALUES
 		<foreach collection="list" item="item" separator=",">
-			(#{item.purchaseDate},#{item.foodName},#{item.foodCatalog},#{item.unit},#{item.num},#{item.unitPrice},
+			(#{item.purchaseDate},#{item.ingredientId},#{item.ingredientCatalogId},#{item.unit},#{item.num},#{item.unitPrice},
 			#{item.budgetary},#{item.purchaseNum},#{item.purchasePrice},#{item.purchaseCost},#{item.grossProfit},#{item.vendor},
 			#{item.purchaser},#{item.note})
 		</foreach>
 	</insert>
 	<select id="findPurchaseRcdList" resultType="com.mgt.plat.entity.PurchaseRecord">
-		SELECT id, purchase_date, food_name, food_catalog, unit, num, unit_price, budgetary, purchase_num, purchase_price, purchase_cost, gross_profit, vendor, purchaser, note, create_time, update_time
+		SELECT id, purchase_date, ingredient_id, ingredient_catalog_id, unit, num, unit_price, budgetary, purchase_num, purchase_price, purchase_cost, gross_profit, vendor, purchaser, note, create_time, update_time
 		FROM purchase_records
 		WHERE 1 = 1
-		<if test="foodName != null and foodName.length()>0">
-			and food_name = #{ foodName }
+		<if test="ingredientId != null and ingredientId != ''">
+			ingredient_id = #{ ingredientId }
 		</if>
 		<if test="purchaseDate != null and purchaseDate.length()>0">
 			and purchase_date = #{ purchaseDate }
@@ -28,11 +28,11 @@
 			<if test="purchaseDate!= null">
 				purchase_date = #{ purchaseDate },
 			</if>
-			<if test="foodName !=null">
-				food_name = #{ foodName },
+			<if test="ingredientId !=null">
+				ingredient_id = #{ ingredientId },
 			</if>
-			<if test="foodCatalog !=null">
-				food_catalog = #{foodCatalog},
+			<if test="ingredientCatalogId !=null">
+				ingredient_catalog_id = #{ingredientCatalogId},
 			</if>
 			<if test="unit!= null">
 				unit = #{unit},

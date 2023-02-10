@@ -25,8 +25,19 @@ public class FoodCyServiceImpl implements FoodCyService {
     @Override
     public ResultBean addFoodCy(List<FoodClassify> list) {
         try {
-            foodCyMapper.addFoodCy(list);
-            return  ResultBean.ok("新增成功");
+            for (FoodClassify item : list) {
+                String str = item.getIngredientCategory();
+                System.out.println(str);
+                Boolean isExisted = checkDuplicate(str);
+                if (!isExisted) {
+                    Integer num = foodCyMapper.addFoodCy(list);
+                    if (num>0){
+                        return ResultBean.ok("新增成功!",true);
+                    }
+                 } else {
+                    return ResultBean.warn(str + "已存在!");
+                }
+            }
         }catch (Exception e){
             logger.error("新增失败!", e);
         }
@@ -93,16 +104,28 @@ public class FoodCyServiceImpl implements FoodCyService {
     }
 
     @Override
-    public ResultBean findCategoryExists(String category) {
+    public ResultBean findCategoryExisted(String category) {
         try {
-            Integer isExists = foodCyMapper.findCategoryExists(category);
-            if (isExists==0){
-                return ResultBean.ok("sucess",true);
+            Integer isExists = foodCyMapper.findCategoryExisted(category);
+            if (isExists == 0){
+                return ResultBean.ok("success",true);
             }
         }catch (Exception e){
             logger.error("系统异常!", e);
             return ResultBean.ok("系统异常");
         }
-        return ResultBean.ok("类目已存在!",false);
+        return ResultBean.ok("该分类已存在!",false);
+    }
+
+     public Boolean checkDuplicate(String category) {
+        try {
+            Integer num = foodCyMapper.findCategoryExisted(category);
+            if (num == 0){
+                return false;
+            }
+        }catch (Exception e){
+            return true;
+        }
+        return true;
     }
 }

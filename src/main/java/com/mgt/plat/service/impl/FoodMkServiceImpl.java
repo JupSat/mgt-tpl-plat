@@ -26,9 +26,18 @@ public class FoodMkServiceImpl implements FoodMkService {
     @Override
     public ResultBean insertFoodMonicker(List<FoodMonicker> list) {
         try{
-            Integer type = foodMkMapper.insertFoodMonicker(list);
-            if (type>0){
-                return ResultBean.ok("新增成功!",true);
+            for (FoodMonicker item : list) {
+                String name = item.getIngredientName();
+                System.out.println(name);
+                Boolean isExisted = checkDuplicate(name);
+                if (!isExisted) {
+                    Integer num = foodMkMapper.insertFoodMonicker(list);
+                    if (num>0){
+                        return ResultBean.ok("新增成功!",true);
+                    }
+                } else {
+                    return ResultBean.warn(name + "已存在!");
+                }
             }
         }catch (Exception e){
             logger.error("系统异常!", e);
@@ -92,5 +101,17 @@ public class FoodMkServiceImpl implements FoodMkService {
             return ResultBean.ok("系统异常！","error");
         }
         return ResultBean.ok("删除失败!","error");
+    }
+
+    public Boolean checkDuplicate(String category) {
+        try {
+            Integer num = foodMkMapper.findIngredientExisted(category);
+            if (num == 0){
+                return false;
+            }
+        }catch (Exception e){
+            return true;
+        }
+        return true;
     }
 }

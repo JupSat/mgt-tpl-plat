@@ -14,7 +14,7 @@ import java.util.List;
  **/
 @Mapper
 public interface FoodCyMapper extends BaseMapper<FoodClassify> {
-    void addFoodCy(List<FoodClassify> list);
+    Integer addFoodCy(List<FoodClassify> list);
 
     List<FoodClassify> findFoodCyList(FoodClassify foodClassify);
 
@@ -24,5 +24,5 @@ public interface FoodCyMapper extends BaseMapper<FoodClassify> {
 
     Integer deleteIngredientCategoryById(Integer id);
 
-    Integer findCategoryExists(String category);
+    Integer findCategoryExisted(String category);
 }
