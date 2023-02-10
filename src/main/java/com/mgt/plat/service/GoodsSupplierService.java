@@ -2,6 +2,7 @@ package com.mgt.plat.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mgt.plat.entity.GoodsSupplier;
+import com.mgt.plat.utils.ResultBean;
 
 import java.util.List;
 
@@ -19,47 +20,46 @@ public interface GoodsSupplierService extends IService<GoodsSupplier> {
      * @param goodsSupplier
      * @return
      */
-    int addSupplier(GoodsSupplier goodsSupplier);
+    ResultBean addSupplier(GoodsSupplier goodsSupplier);
 
     /**
      * 批量新增货物供应商
      * @param goodsSupplierList
      */
-    void batchAddSupplier(List<GoodsSupplier> goodsSupplierList);
+    ResultBean batchAddSupplier(List<GoodsSupplier> goodsSupplierList);
 
     /**
      * 根据供应商名称获取供应商信息
      * @param name
      * @return
      */
-    GoodsSupplier findByName(String name);
+    ResultBean findByName(String name);
 
     /**
      * 根据供应商编号获取供应商信息
      * @param id
      * @return
      */
-    GoodsSupplier findById(String id);
+    ResultBean findById(String id);
 
     /**
      * 根据供应商名称模糊查询
      * @param name
      * @return
      */
-    List<GoodsSupplier> findAllByName(String name);
+    ResultBean  findAllByName(String name);
 
     /**
      * 修改供应商信息
      * @param goodsSupplier
      * @return
      */
-    boolean updateSupplier(GoodsSupplier goodsSupplier);
+    ResultBean updateSupplier(GoodsSupplier goodsSupplier);
 
     /**
      * 删除供应商
      * @param id
      * @return
      */
-    int deleteById(String id);
-
+    ResultBean deleteById(Long id);
 }

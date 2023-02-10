@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SkuInfo {
-    private long id;
+    private Long id;
     private String skuName;
     private BigDecimal skuNum;
     private String skuUnit;

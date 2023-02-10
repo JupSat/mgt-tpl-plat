@@ -14,25 +14,25 @@ import io.swagger.annotations.ApiModelProperty;
  **/
 public class BaseEntity {
 
-    @TableField(value = "creatTime",fill = FieldFill.INSERT)
+    @TableField(value = "create_time",fill = FieldFill.DEFAULT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/ShangHai")
     @ApiModelProperty(value = "创建时间")
-    private String creatTime;
+    private String createTime;
 
-    @ApiModelProperty(value = "创建人")
-    private String creator;
+//    @ApiModelProperty(value = "创建人")
+//    private String creator;
 
-    @TableField(value = "updateTime",fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/ShangHai")
     @ApiModelProperty(value = "修改时间")
     private String updateTime;
 
-    @ApiModelProperty(value = "修改人")
-    private String updater;
+//    @ApiModelProperty(value = "修改人")
+//    private String updater;
 
     /**
      * 下面的为冗余字段，但其定义可讨论  TODO
      */
-    @ApiModelProperty(value = "冗余字段")
-    private String string10;
+//    @ApiModelProperty(value = "冗余字段")
+//    private String string10;
 }

@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FoodMonicker {
-  private long id;
-  private long catalogId;
+  private Long id;
+  private Long catalogId;
   private String ingredientName;
   private String ingredientImg;
   private String ingredientDesc;

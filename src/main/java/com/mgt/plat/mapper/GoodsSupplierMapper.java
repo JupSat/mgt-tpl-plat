@@ -22,7 +22,7 @@ public interface GoodsSupplierMapper extends BaseMapper<GoodsSupplier> {
 
     GoodsSupplier querySupplierByName(@Param("username") String username);
 
-    @Update("update goods_supplier g set g.address = #{address},g.contact = #{contact},g.phone = #{phone},g.email = #{email},g.remarks = #{remarks}," +
+    @Update("update goods_supplier g set g.name = #{name},g.address = #{address},g.contact = #{contact},g.phone = #{phone},g.email = #{email},g.remarks = #{remarks}" +
             " where g.id = #{id}")
     int updateById(GoodsSupplier goodsSupplier);
 
