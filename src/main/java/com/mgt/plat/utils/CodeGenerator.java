@@ -1,12 +1,16 @@
 package com.mgt.plat.utils;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
+import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * package name：com.mgt.plat.utils
@@ -15,7 +19,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  * modification time：2023-02-10 10:32
  * modified content：
  **/
-public class GeneratorCode {
+public class CodeGenerator {
     public static void main(String[] args) {
         // 1.创建代码生成器
         AutoGenerator autoGenerator = new AutoGenerator();
@@ -36,9 +40,8 @@ public class GeneratorCode {
         // 3. 设置全局配置
         GlobalConfig globalConfig = new GlobalConfig();
         // 3.1 默认输出D盘根下，设置到这一目录下  mgt-tpl-plat/src/main/java
-        String ll = System.getProperty("user.dir");
-//        globalConfig.setOutputDir(System.getProperty("user.dir")+"/mgt-tpl-plat/src/main/java");
-        globalConfig.setOutputDir(System.getProperty("user.dir")+"\\src\\main\\java");
+        String projectPath = System.getProperty("user.dir");
+        globalConfig.setOutputDir(projectPath+"\\src\\main\\java");
         // 3.2设置完之后是否打开资源管理器
         globalConfig.setOpen(false);
         // 3.2 设置作者
@@ -47,8 +50,17 @@ public class GeneratorCode {
         globalConfig.setFileOverride(true);
         // 3.4 设置数据层接口名，%s为占位符  代表数据库中的表名或模块名
         globalConfig.setMapperName("%sMapper");
-        // 3.5 设置id生成策略
+        // 3.5 设置数据层接口名（为了去掉Service接口的首字母I）
+        globalConfig.setServiceName("%sService");
+        // 3.6 定义生成的实体类中日期类型
+        globalConfig.setDateType(DateType.ONLY_DATE);
+        // 3.7 设置id生成策略
         globalConfig.setIdType(IdType.ASSIGN_ID);
+        // 3.8 开启Swagger2模式
+        globalConfig.setSwagger2(true);
+        // 3.9 xml开启 BaseResultMap
+        globalConfig.setBaseResultMap(true);
+
         autoGenerator.setGlobalConfig(globalConfig);
 
         // 4. 设置包名相关配置
@@ -59,6 +71,31 @@ public class GeneratorCode {
         packageConfig.setEntity("entity");
         // 4.3 设置数据层包名
         packageConfig.setMapper("mapper");
+        // 4.4 自定义配置
+        InjectionConfig injectionConfig = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                // to do nothing
+            }
+        };
+
+        // 模板路径： 模板引擎为velocity（如果模板引擎是 freemarker则用 "/templates/mapper.xml.ftl"）
+        String templatePath = "/templates/mapper.xml.vm";
+
+        // 自定义输出配置
+        List<FileOutConfig> focList = new ArrayList<>();
+        // 自定义配置会被优先输出
+        focList.add(new FileOutConfig(templatePath) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                 String moduleName = packageConfig.getModuleName() == null ? "" : packageConfig.getModuleName();
+                return projectPath + "/src/main/resources/mapper/" + moduleName
+                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT + "xml";
+            }
+        });
+        injectionConfig.setFileOutConfigList(focList);
+        autoGenerator.setCfg(injectionConfig);
+
         // 4.4 设置数据层包名
         autoGenerator.setPackageInfo(packageConfig);
 
@@ -78,8 +115,12 @@ public class GeneratorCode {
         strategyConfig.setEntityLombokModel(true);
         // 5.7 设置列名下划线转驼峰命名
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
-         autoGenerator.setStrategy(strategyConfig);
-        //  执行生成操作
+        // 5.8 列名数据库下划线至实体类属性支持驼峰命名
+        strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
+
+        autoGenerator.setStrategy(strategyConfig);
+
+        // 6. 执行生成操作
         autoGenerator.execute();
     }
 }
