@@ -120,7 +120,14 @@ public class CodeGenerator {
 
         autoGenerator.setStrategy(strategyConfig);
 
-        // 6. 执行生成操作
+        // 6. 配置模板
+        TemplateConfig templateConfig = new TemplateConfig();
+        // 6.1 设置xml(使其不产生xml文件夹和文件)
+        templateConfig.setXml(null);
+        // 6.2 设置模板
+        autoGenerator.setTemplate(templateConfig);
+
+        // 7. 执行生成操作
         autoGenerator.execute();
     }
 }
