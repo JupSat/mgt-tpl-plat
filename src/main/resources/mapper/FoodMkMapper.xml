@@ -32,8 +32,8 @@
         SELECT id, catalog_id, ingredient_name, ingredient_img, ingredient_desc, ingredient_redundancy
         FROM ingredient_list
         <where>
-            <if test="ingredientName != null and ingredientName.length()>0 ">
-                and ingredient_name=#{ingredientName }
+            <if test="ingredientName != null and ingredientName != '' ">
+                and ingredient_name like "%"#{ingredientName}"%"
             </if>
             <if test="catalogId != null and catalogId!=''">
                 and catalog_id=#{catalogId}
@@ -51,4 +51,8 @@
     <delete id="deleteIngredientById">
         DELETE FROM ingredient_list WHERE id= #{ id };
     </delete>
+
+    <select id="findIngredientExisted" resultType="java.lang.Integer" parameterType="String">
+        SELECT count(1) from ingredient_list where ingredient_name = #{ingredientName}
+    </select>
 </mapper>

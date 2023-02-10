@@ -48,7 +48,7 @@ public class FoodCyController {
     }
     @GetMapping("/exists")
     public ResultBean findCategory(@RequestParam String category){
-        foodCyService.findCategoryExists(category);
-        return foodCyService.findCategoryExists(category);
+        foodCyService.findCategoryExisted(category);
+        return foodCyService.findCategoryExisted(category);
     }
 }
