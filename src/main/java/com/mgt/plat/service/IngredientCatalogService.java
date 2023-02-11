@@ -1,9 +1,10 @@
 package com.mgt.plat.service;
 
-import com.mgt.plat.entity.FoodClassify;
+import com.mgt.plat.entity.IngredientCatalog;
 import com.mgt.plat.utils.ResultBean;
 
 import java.util.List;
+
 /**
  * package name：com.mgt.plat.service
  * description：食品分类service接口
@@ -11,17 +12,16 @@ import java.util.List;
  * modification time：2023-2-4
  * modified content：
  **/
-public interface FoodCyService {
-    ResultBean addFoodCy(List<FoodClassify> list);
+public interface IngredientCatalogService {
+    ResultBean addCatalog(List<IngredientCatalog> list);
 
-    ResultBean findFoodCyList(FoodClassify foodClassify);
+    ResultBean findIngredientCatalog(IngredientCatalog ingredientCatalog);
 
-    ResultBean updateFoodCategoryByFoodId(FoodClassify foodClassify);
+    ResultBean updateIngredientCatalogById(IngredientCatalog ingredientCatalog);
 
     ResultBean deleteIngredientCategoryById(Integer id);
 
     ResultBean deleteByFoodCategoryById(List<Integer> list);
-
 
     ResultBean findCategoryExisted(String category);
 }

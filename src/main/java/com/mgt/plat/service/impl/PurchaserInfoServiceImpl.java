@@ -1,8 +1,6 @@
 package com.mgt.plat.service.impl;
 
-import com.mgt.plat.entity.PurchaseRecord;
 import com.mgt.plat.entity.PurchaserInfo;
-import com.mgt.plat.mapper.PurchaseRcdMapper;
 import com.mgt.plat.mapper.PurchaserInfoMapper;
 import com.mgt.plat.service.PurchaserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

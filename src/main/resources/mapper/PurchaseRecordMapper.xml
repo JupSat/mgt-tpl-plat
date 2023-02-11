@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mgt.plat.mapper.PurchaseRcdMapper">
+<mapper namespace="com.mgt.plat.mapper.PurchaseRecordMapper">
 	<insert id="addPurchaseRcd" parameterType="List">
 		INSERT purchase_records
 		(purchase_date, ingredient_id, ingredient_catalog_id, unit, num, unit_price, budgetary, purchase_num, purchase_price, purchase_cost, gross_profit, vendor, purchaser, note)

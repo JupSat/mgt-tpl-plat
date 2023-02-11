@@ -1,7 +1,7 @@
 package com.mgt.plat.service.impl;
 import com.mgt.plat.entity.PurchaseRecord;
-import com.mgt.plat.mapper.PurchaseRcdMapper;
-import com.mgt.plat.service.PurchaseRcdService;
+import com.mgt.plat.mapper.PurchaseRecordMapper;
+import com.mgt.plat.service.PurchaseRecordRcdService;
 import com.mgt.plat.utils.ResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,15 +17,15 @@ import java.util.List;
  * modified content：
  **/
 @Service
- public class PurchaseRcdServiceImpl implements PurchaseRcdService {
-    private final static Logger logger = LoggerFactory.getLogger(PurchaseRcdServiceImpl.class);
+ public class PurchaseRecordRecordServiceImpl implements PurchaseRecordRcdService {
+    private final static Logger logger = LoggerFactory.getLogger(PurchaseRecordRecordServiceImpl.class);
     @Autowired
-    private PurchaseRcdMapper purchaseRcdMapper;
+    private PurchaseRecordMapper purchaseRecordMapper;
 
     @Override
     public ResultBean insertPurchaseRecord(List<PurchaseRecord> purchaseRecord) {
         try {
-            purchaseRcdMapper.addPurchaseRcd(purchaseRecord);
+            purchaseRecordMapper.addPurchaseRcd(purchaseRecord);
             System.out.print(purchaseRecord);
             return  ResultBean.ok("新增成功");
         }catch (Exception e){
@@ -37,7 +37,7 @@ import java.util.List;
     @Override
     public ResultBean deletePurchaseRecord(Integer id) {
         try {
-            Integer type = purchaseRcdMapper.deletePurchaseRcdById(id);
+            Integer type = purchaseRecordMapper.deletePurchaseRcdById(id);
             if (type>0){
                 return ResultBean.ok("删除成功!");
             }
@@ -51,7 +51,7 @@ import java.util.List;
     @Override
     public ResultBean updatePurchaseRecord(PurchaseRecord purchaseRecord) {
         try {
-            Integer type = purchaseRcdMapper.updatePurchaseRcdById(purchaseRecord);
+            Integer type = purchaseRecordMapper.updatePurchaseRcdById(purchaseRecord);
             if (type==1){
                 return ResultBean.ok("数据更新成功");
             }
@@ -65,7 +65,7 @@ import java.util.List;
     @Override
     public ResultBean findPurchaseRecordList(String ingredientId, String purchaseDate) {
         try{
-            List<PurchaseRecord> purchaseRecordList = purchaseRcdMapper.findPurchaseRcdList(ingredientId, purchaseDate);
+            List<PurchaseRecord> purchaseRecordList = purchaseRecordMapper.findPurchaseRcdList(ingredientId, purchaseDate);
             if (purchaseRecordList.size()>0){
                 return ResultBean.ok("查询成功!",purchaseRecordList);
             }else{

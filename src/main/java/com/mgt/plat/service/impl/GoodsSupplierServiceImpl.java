@@ -2,7 +2,6 @@ package com.mgt.plat.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mgt.plat.entity.FoodMonicker;
 import com.mgt.plat.entity.GoodsSupplier;
 import com.mgt.plat.mapper.GoodsSupplierMapper;
 import com.mgt.plat.service.GoodsSupplierService;
@@ -23,7 +22,7 @@ import java.util.List;
  **/
 @Service
 public class GoodsSupplierServiceImpl extends ServiceImpl<GoodsSupplierMapper, GoodsSupplier> implements GoodsSupplierService {
-    private final static Logger logger = LoggerFactory.getLogger(FoodCyServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(IngredientCatalogServiceImpl.class);
 
     @Autowired
     private GoodsSupplierMapper goodsSupplierMapper;

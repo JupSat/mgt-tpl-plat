@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FoodClassify {
+public class IngredientCatalog {
   private Long id;
   private String ingredientCategory;
   private String code;

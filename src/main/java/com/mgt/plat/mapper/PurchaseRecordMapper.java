@@ -12,7 +12,7 @@ import java.util.List;
  * modification time：2023-02-05 21:09
  * modified content：
  **/
-public interface PurchaseRcdMapper {
+public interface PurchaseRecordMapper {
     void addPurchaseRcd(List<PurchaseRecord> purchaseRecord);
 
     List<PurchaseRecord> findPurchaseRcdList(@Param("ingredientId") String ingredientId, @Param("purchaseDate") String purchaseDate);

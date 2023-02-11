@@ -1,10 +1,11 @@
 package com.mgt.plat.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mgt.plat.entity.FoodClassify;
+import com.mgt.plat.entity.IngredientCatalog;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+
 /**
  * package name：com.mgt.plat.mapper
  * description：食品分类接口
@@ -13,12 +14,12 @@ import java.util.List;
  * modified content：
  **/
 @Mapper
-public interface FoodCyMapper extends BaseMapper<FoodClassify> {
-    Integer addFoodCy(List<FoodClassify> list);
+public interface IngredientCatalogMapper extends BaseMapper<IngredientCatalog> {
+    Integer addCatalog(List<IngredientCatalog> list);
 
-    List<FoodClassify> findFoodCyList(FoodClassify foodClassify);
+    List<IngredientCatalog> findIngredientCatalog(IngredientCatalog ingredientCatalog);
 
-    Integer updateFoodCategoryByFoodId(FoodClassify foodClassify);
+    Integer updateIngredientCatalogById(IngredientCatalog ingredientCatalog);
 
     Integer deleteByFoodCategoryById(List<Integer> list);
 

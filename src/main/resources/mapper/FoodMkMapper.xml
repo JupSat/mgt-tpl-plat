@@ -1,58 +1,60 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.mgt.plat.mapper.FoodMkMapper">
-    <insert id="insertFoodMonicker"  parameterType="List">
-        INSERT INTO ingredient_list(catalog_id, ingredient_name, ingredient_img, ingredient_desc, ingredient_redundancy) VALUES
-        <foreach collection="list" item="item"  separator=",">
-            (#{item.catalogId},#{item.ingredientName},#{item.ingredientImg},#{item.ingredientDesc},#{item.ingredientRedundancy})
-        </foreach>
-    </insert>
-    <update id="updateFoodMonickerByFoodId" parameterType="com.mgt.plat.entity.FoodMonicker">
-        UPDATE ingredient_list
-        <set>
-            <if test="catalogId != 0">catalog_id = #{catalogId},</if>
-            <if test="ingredientName != null ">ingredient_name = #{ingredientName},</if>
-            <if test="ingredientImg != null  and ingredientImg.length()>0">ingredient_img = #{ingredientImg},</if>
-            <if test="ingredientDesc != null  and ingredientDesc.length()>0 ">ingredient_desc = #{ingredientDesc},</if>
-            <if test="ingredientRedundancy != null  and ingredientRedundancy.length()>0">ingredient_redundancy = #{ingredientRedundancy},</if>
-        </set>
-        where id = #{id}
-    </update>
-
-<!--    <select id="findMonickerById" resultType="com.mgt.plat.entity.FoodMonicker" parameterType="java.lang.Integer">-->
-<!--        SELECT ingredient_list.`id` AS foodId,ingredient_list.`catalog_id` AS catalogId,-->
-<!--               ingredient_list.`ingredientName` AS ingredientName,ingredient_list.`img` AS img,-->
-<!--               ingredient_list.ingredient_desc AS desc, ingredient_list.`food_redundancy` AS redundancy FROM ingredient_list WHERE catalog_id =#{number}-->
-<!--    </select>-->
-
-    <select id="findMonicker" resultType="com.mgt.plat.entity.FoodMonicker" parameterType="com.mgt.plat.entity.FoodMonicker">
-        SELECT id, catalog_id, ingredient_name, ingredient_img, ingredient_desc, ingredient_redundancy
-        FROM ingredient_list
-        <where>
-            <if test="ingredientName != null and ingredientName != '' ">
-                and ingredient_name like "%"#{ingredientName}"%"
-            </if>
-            <if test="catalogId != null and catalogId!=''">
-                and catalog_id=#{catalogId}
-            </if>
-        </where>
-
-    </select>
-
-<!--    <delete id="deleteFoodMonickerById" parameterType="list">-->
-<!--        delete from ingredient_list where food_id in-->
-<!--        <foreach collection="list" item="id" open="(" close=")" separator=",">-->
-<!--            #{id}-->
-<!--        </foreach>-->
-<!--    </delete>-->
-    <delete id="deleteIngredientById">
-        DELETE FROM ingredient_list WHERE id= #{ id };
-    </delete>
-
-    <select id="findIngredientExisted" resultType="java.lang.Integer" parameterType="String">
-        SELECT count(1) from ingredient_list where ingredient_name = #{ingredientName}
-    </select>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mgt.plat.mapper.IngredientMapper">
+	<insert id="insertIngredient" parameterType="List">
+		INSERT INTO ingredient_list(catalog_id, ingredient_name, ingredient_img, ingredient_desc, ingredient_redundancy) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.catalogId},#{item.ingredientName},#{item.ingredientImg},#{item.ingredientDesc},#{item.ingredientRedundancy})
+		</foreach>
+	</insert>
+	<update id="updateIngredientById" parameterType="com.mgt.plat.entity.Ingredient">
+		UPDATE ingredient_list
+		<set>
+			<if test="catalogId != 0">
+				catalog_id = #{catalogId},
+			</if>
+			<if test="ingredientName != null ">
+				ingredient_name = #{ingredientName},
+			</if>
+			<if test="ingredientImg != null  and ingredientImg.length()>0">
+				ingredient_img = #{ingredientImg},
+			</if>
+			<if test="ingredientDesc != null  and ingredientDesc.length()>0 ">
+				ingredient_desc = #{ingredientDesc},
+			</if>
+			<if test="ingredientRedundancy != null  and ingredientRedundancy.length()>0">
+				ingredient_redundancy = #{ingredientRedundancy},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	<!-- <select id="findIngredientById" resultType="com.mgt.plat.entity.IngredientparameterType="java.lang.Integer"> -->
+	<!-- SELECT ingredient_list.`id` AS foodId,ingredient_list.`catalog_id` AS catalogId, -->
+	<!-- ingredient_list.`ingredientName` AS ingredientName,ingredient_list.`img` AS img, -->
+	<!-- ingredient_list.ingredient_desc AS desc, ingredient_list.`food_redundancy` AS redundancy FROM ingredient_list WHERE catalog_id =#{number} -->
+	<!-- </select> -->
+	<select id="findIngredient" resultType="com.mgt.plat.entity.Ingredient" parameterType="com.mgt.plat.entity.Ingredient">
+		SELECT id, catalog_id, ingredient_name, ingredient_img, ingredient_desc, ingredient_redundancy
+		FROM ingredient_list
+		<where>
+			<if test="ingredientName != null and ingredientName != '' ">
+				and ingredient_name like "%"#{ingredientName}"%"
+			</if>
+			<if test="catalogId != null and catalogId!=''">
+				and catalog_id=#{catalogId}
+			</if>
+		</where>
+	</select>
+	<!-- <delete id="deleteIngredientById" parameterType="list"> -->
+	<!-- delete from ingredient_list where food_id in -->
+	<!-- <foreach collection="list" item="id" open="(" close=")" separator=","> -->
+	<!-- #{id} -->
+	<!-- </foreach> -->
+	<!-- </delete> -->
+	<delete id="deleteIngredientById">
+		DELETE FROM ingredient_list WHERE id= #{ id };
+	</delete>
+	<select id="findIngredientExisted" resultType="java.lang.Integer" parameterType="String">
+		SELECT count(1) from ingredient_list where ingredient_name = #{ingredientName}
+	</select>
 </mapper>

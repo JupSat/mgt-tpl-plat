@@ -1,7 +1,7 @@
 package com.mgt.plat.controller;
 
 import com.mgt.plat.entity.PurchaseRecord;
-import com.mgt.plat.service.PurchaseRcdService;
+import com.mgt.plat.service.PurchaseRecordRcdService;
 import com.mgt.plat.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,29 +17,29 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/purchaseRecord")
-public class PurchaseRcdController {
+public class PurchaseRecordController {
     @Autowired
-    private PurchaseRcdService purchaseRcdService;
+    private PurchaseRecordRcdService purchaseRecordRcdService;
 
     @PostMapping("/add")
     public ResultBean addPurchaseRcd(@RequestBody List<PurchaseRecord> purchaseRcd){
-        return purchaseRcdService.insertPurchaseRecord(purchaseRcd);
+        return purchaseRecordRcdService.insertPurchaseRecord(purchaseRcd);
     }
 
     @PostMapping("/find")
     public ResultBean findPurchaseRcdList(@RequestBody HashMap<String, String> params){
         String ingredientId = params.get("ingredientId");
         String purchaseDate = params.get("purchaseDate");
-        return purchaseRcdService.findPurchaseRecordList(ingredientId,  purchaseDate);
+        return purchaseRecordRcdService.findPurchaseRecordList(ingredientId,  purchaseDate);
     }
     @PostMapping("/update")
     public ResultBean updatePurchaseRecord(@RequestBody PurchaseRecord purchaseRcd){
-        purchaseRcdService.updatePurchaseRecord(purchaseRcd);
-        return purchaseRcdService.updatePurchaseRecord(purchaseRcd);
+        purchaseRecordRcdService.updatePurchaseRecord(purchaseRcd);
+        return purchaseRecordRcdService.updatePurchaseRecord(purchaseRcd);
     }
 
     @PostMapping("/delete")
     public ResultBean deletePurchaseRecordById(@RequestParam("id") Integer id){
-        return purchaseRcdService.deletePurchaseRecord(id);
+        return purchaseRecordRcdService.deletePurchaseRecord(id);
     }
 }
