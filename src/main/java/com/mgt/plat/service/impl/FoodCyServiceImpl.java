@@ -83,7 +83,7 @@ public class FoodCyServiceImpl implements FoodCyService {
             }
         }catch (Exception e){
             logger.error("删除失败!", e);
-            return ResultBean.ok("删除失败!");
+            return ResultBean.warn("删除失败!请检查食材列表是否存在对此分类的索引，如有请先修改或删除");
         }
         return ResultBean.ok("无效ID!");
     }
