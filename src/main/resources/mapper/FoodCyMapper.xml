@@ -1,52 +1,53 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.mgt.plat.mapper.FoodCyMapper">
-    <insert id="addFoodCy" parameterType="List">
-        INSERT INTO  ingredient_catalog(ingredient_category, code, redundancy) VALUES
-        <foreach collection="list" item="item"  separator=",">
-            (#{item.ingredientCategory},#{item.code},#{item.redundancy})
-        </foreach>
-    </insert>
-
-    <select id="findFoodCyList" resultType="com.mgt.plat.entity.FoodClassify" parameterType="com.mgt.plat.entity.FoodClassify">
-        SELECT id,ingredient_category, code, redundancy
-        FROM ingredient_catalog  WHERE 1 = 1
-        <if test="id != null">
-            id=#{id}
-        </if>
-        <if test="ingredientCategory != null and ingredientCategory != ''">
-            and ingredient_category like "%"#{ingredientCategory}"%"
-        </if>
-        <if test="code != null">
-            and  code=#{code}
-        </if>
-        <if test="redundancy != null and redundancy.length()>0 ">
-            and redundancy=#{redundancy}
-        </if>
-    </select>
-
-    <update id="updateFoodCategoryByFoodId" parameterType="com.mgt.plat.entity.FoodClassify" >
-        UPDATE ingredient_catalog
-        <set>
-            <if test="ingredientCategory !=null and ingredientCategory.length()>0 ">ingredient_category = #{ingredientCategory},</if>
-            <if test="code !=null and code.length()>0 ">code = #{code},</if>
-            <if test="redundancy !=null">redundancy = #{redundancy},</if>
-        </set>
-            where id=#{id}
-    </update>
-    <delete id="deleteByFoodCategoryById">
-        delete from ingredient_catalog where id in
-            <foreach collection="list" item="id" open="(" close=")" separator=",">
-                #{id}
-            </foreach>
-    </delete>
-    <delete id="deleteIngredientCategoryById">
-        DELETE FROM ingredient_catalog WHERE id= #{ id };
-    </delete>
-    <select id="findCategoryExisted" resultType="java.lang.Integer" parameterType="String">
-        SELECT count(1) from ingredient_catalog where ingredient_category = #{ingredientCategory}
-    </select>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mgt.plat.mapper.IngredientCatalogMapper">
+	<insert id="addCatalog" parameterType="List">
+		INSERT INTO  ingredient_catalog(ingredient_category, code, redundancy) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.ingredientCategory},#{item.code},#{item.redundancy})
+		</foreach>
+	</insert>
+	<select id="findIngredientCatalog" resultType="com.mgt.plat.entity.IngredientCatalog" parameterType="com.mgt.plat.entity.IngredientCatalog">
+		SELECT id,ingredient_category, code, redundancy
+		FROM ingredient_catalog  WHERE 1 = 1
+		<if test="id != null">
+			id=#{id}
+		</if>
+		<if test="ingredientCategory != null and ingredientCategory != ''">
+			and ingredient_category like "%"#{ingredientCategory}"%"
+		</if>
+		<if test="code != null">
+			and  code=#{code}
+		</if>
+		<if test="redundancy != null and redundancy.length()>0 ">
+			and redundancy=#{redundancy}
+		</if>
+	</select>
+	<update id="updateIngredientCatalogById" parameterType="com.mgt.plat.entity.IngredientCatalog">
+		UPDATE ingredient_catalog
+		<set>
+			<if test="ingredientCategory !=null and ingredientCategory.length()>0 ">
+				ingredient_category = #{ingredientCategory},
+			</if>
+			<if test="code !=null and code.length()>0 ">
+				code = #{code},
+			</if>
+			<if test="redundancy !=null">
+				redundancy = #{redundancy},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	<delete id="deleteByFoodCategoryById">
+		delete from ingredient_catalog where id in
+		<foreach collection="list" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+	<delete id="deleteIngredientCategoryById">
+		DELETE FROM ingredient_catalog WHERE id= #{ id };
+	</delete>
+	<select id="findCategoryExisted" resultType="java.lang.Integer" parameterType="String">
+		SELECT count(1) from ingredient_catalog where ingredient_category = #{ingredientCategory}
+	</select>
 </mapper>

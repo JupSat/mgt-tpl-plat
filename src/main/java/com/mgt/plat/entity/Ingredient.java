@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FoodMonicker {
+public class Ingredient {
   private Long id;
   private Long catalogId;
   private String ingredientName;

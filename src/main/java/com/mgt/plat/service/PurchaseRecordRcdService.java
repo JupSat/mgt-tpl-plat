@@ -11,7 +11,7 @@ import java.util.List;
  * modification time：2023-02-05 20:49
  * modified content：
  **/
-public interface PurchaseRcdService {
+public interface PurchaseRecordRcdService {
     ResultBean insertPurchaseRecord(List<PurchaseRecord> purchaseRecord);
 
     ResultBean deletePurchaseRecord(Integer id);

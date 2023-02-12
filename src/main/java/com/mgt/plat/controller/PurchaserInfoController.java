@@ -1,9 +1,7 @@
 package com.mgt.plat.controller;
 
 
-import com.mgt.plat.entity.GoodsSupplier;
 import com.mgt.plat.entity.PurchaserInfo;
-import com.mgt.plat.service.PurchaseRcdService;
 import com.mgt.plat.service.PurchaserInfoService;
 import com.mgt.plat.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -21,7 +21,7 @@ import java.util.List;
  **/
 @Service
 public class SkuInfoServiceImpl implements SkuInfoService {
-    private final static Logger logger = LoggerFactory.getLogger(PurchaseRcdServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(PurchaseRecordRecordServiceImpl.class);
     @Autowired
     private SkuInfoMapper skuInfoMapper;
     @Override
