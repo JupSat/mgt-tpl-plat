@@ -15,7 +15,7 @@ import java.util.List;
 public interface PurchaseRecordMapper {
     void addPurchaseRcd(List<PurchaseRecord> purchaseRecord);
 
-    List<PurchaseRecord> findPurchaseRcdList(@Param("ingredientId") String ingredientId, @Param("purchaseDate") String purchaseDate);
+    List<PurchaseRecord> findPurchaseRcdList(@Param("ingredientId") Integer ingredientId, @Param("purchaseDate") String purchaseDate);
 
     Integer updatePurchaseRcdById(PurchaseRecord purchaseRecord);
 
