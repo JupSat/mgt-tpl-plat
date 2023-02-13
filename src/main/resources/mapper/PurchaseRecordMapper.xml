@@ -21,7 +21,17 @@
 		<if test="purchaseDate != null and purchaseDate != ''">
 			and purchase_date = #{ purchaseDate }
 		</if>
-
+	</select>
+	<select id="findPurchaseRcdListByPage" resultType="com.mgt.plat.entity.PurchaseRecord">
+		SELECT id, purchase_date, ingredient_id, ingredient_catalog_id, unit, num, unit_price, budgetary, purchase_num, purchase_price, purchase_cost, gross_profit, vendor, purchaser, note, create_time, update_time
+		FROM purchase_records
+		WHERE 1 = 1
+		<if test="ingredientId != null and ingredientId != 0">
+			and ingredient_id = #{ ingredientId }
+		</if>
+		<if test="purchaseDate != null and purchaseDate != ''">
+			and purchase_date = #{ purchaseDate }
+		</if>
 	</select>
 	<update id="updatePurchaseRcdById" parameterType="com.mgt.plat.entity.PurchaseRecord">
 		UPDATE purchase_records

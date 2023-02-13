@@ -32,6 +32,15 @@ public class PurchaseRecordController {
         String purchaseDate = params.get("purchaseDate");
         return purchaseRecordService.findPurchaseRecordList(ingredientId,  purchaseDate);
     }
+    @PostMapping("/findByPage")
+    public ResultBean findPurchaseRcdListByPage(@RequestBody HashMap<String, String> params){
+        String ingredientId = params.get("ingredientId");
+        String purchaseDate = params.get("purchaseDate");
+
+        Integer pageSize = Integer.valueOf(params.get("pageSize"));
+        Integer pageNum = Integer.valueOf(params.get("pageNum"));
+        return purchaseRecordService.findPurchaseRecordListByPage(ingredientId,  purchaseDate, pageSize, pageNum);
+    }
     @PostMapping("/update")
     public ResultBean updatePurchaseRecord(@RequestBody PurchaseRecord purchaseRcd){
         purchaseRecordService.updatePurchaseRecord(purchaseRcd);

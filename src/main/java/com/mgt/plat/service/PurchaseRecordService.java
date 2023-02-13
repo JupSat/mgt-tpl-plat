@@ -21,4 +21,7 @@ public interface PurchaseRecordService {
     ResultBean findPurchaseRecordById(Integer id);
 
     ResultBean findPurchaseRecordList(String ingredientId, String purchaseDate);
+
+    ResultBean findPurchaseRecordListByPage(String ingredientId, String purchaseDate, Integer pageSize, Integer pageNum);
+
 }
