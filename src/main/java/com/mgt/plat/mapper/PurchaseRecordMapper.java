@@ -1,5 +1,6 @@
 package com.mgt.plat.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mgt.plat.entity.PurchaseRecord;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,7 +16,11 @@ import java.util.List;
 public interface PurchaseRecordMapper {
     void addPurchaseRcd(List<PurchaseRecord> purchaseRecord);
 
-    List<PurchaseRecord> findPurchaseRcdList(@Param("ingredientId") String ingredientId, @Param("purchaseDate") String purchaseDate);
+    List<PurchaseRecord> findPurchaseRcdList(@Param("ingredientId") Integer ingredientId, @Param("purchaseDate") String purchaseDate);
+
+//    List<PurchaseRecord> findPurchaseRcdListByPage(@Param("ingredientId") Integer ingredientId, @Param("purchaseDate") String purchaseDate, Integer pageSize, Integer pageNum);
+
+    IPage<PurchaseRecord> findPurchaseRcdListByPage (IPage<PurchaseRecord> page, @Param("ingredientId") Integer ingredientId, @Param("purchaseDate") String purchaseDate);
 
     Integer updatePurchaseRcdById(PurchaseRecord purchaseRecord);
 

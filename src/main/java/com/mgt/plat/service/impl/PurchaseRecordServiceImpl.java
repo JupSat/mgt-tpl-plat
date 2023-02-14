@@ -1,7 +1,9 @@
 package com.mgt.plat.service.impl;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mgt.plat.entity.PurchaseRecord;
 import com.mgt.plat.mapper.PurchaseRecordMapper;
-import com.mgt.plat.service.PurchaseRecordRcdService;
+import com.mgt.plat.service.PurchaseRecordService;
 import com.mgt.plat.utils.ResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +19,8 @@ import java.util.List;
  * modified content：
  **/
 @Service
- public class PurchaseRecordRecordServiceImpl implements PurchaseRecordRcdService {
-    private final static Logger logger = LoggerFactory.getLogger(PurchaseRecordRecordServiceImpl.class);
+ public class PurchaseRecordServiceImpl implements PurchaseRecordService {
+    private final static Logger logger = LoggerFactory.getLogger(PurchaseRecordServiceImpl.class);
     @Autowired
     private PurchaseRecordMapper purchaseRecordMapper;
 
@@ -65,8 +67,38 @@ import java.util.List;
     @Override
     public ResultBean findPurchaseRecordList(String ingredientId, String purchaseDate) {
         try{
-            List<PurchaseRecord> purchaseRecordList = purchaseRecordMapper.findPurchaseRcdList(ingredientId, purchaseDate);
+            int tempIngredientId;
+            if (ingredientId == null || ingredientId.equals("")) {
+                tempIngredientId = 0;
+            } else {
+                tempIngredientId = Integer.parseInt(ingredientId);
+            }
+            List<PurchaseRecord> purchaseRecordList = purchaseRecordMapper.findPurchaseRcdList(tempIngredientId, purchaseDate);
             if (purchaseRecordList.size()>0){
+                return ResultBean.ok("查询成功!",purchaseRecordList);
+            }else{
+                return ResultBean.ok("您查询的数据不存在!");
+            }
+        }catch (Exception e){
+            return ResultBean.ok("查询失败!");
+        }
+    }
+
+    @Override
+    public ResultBean findPurchaseRecordListByPage(String ingredientId, String purchaseDate, Integer pageSize, Integer pageNum) {
+        try{
+            int tempIngredientId;
+            if (ingredientId == null || ingredientId.equals("")) {
+                tempIngredientId = 0;
+            } else {
+                tempIngredientId = Integer.parseInt(ingredientId);
+            }
+            Page<PurchaseRecord> page = new Page<>(pageNum, pageSize);
+            IPage<PurchaseRecord> purchaseRecordList =
+                 purchaseRecordMapper.findPurchaseRcdListByPage(page,tempIngredientId, purchaseDate);
+//            List<PurchaseRecord> purchaseRecordList =
+//                    purchaseRecordMapper.findPurchaseRcdListByPage(tempIngredientId, purchaseDate, pageSize, pageNum);
+            if (purchaseRecordList != null){
                 return ResultBean.ok("查询成功!",purchaseRecordList);
             }else{
                 return ResultBean.ok("您查询的数据不存在!");
