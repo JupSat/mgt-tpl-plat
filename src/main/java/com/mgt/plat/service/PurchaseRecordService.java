@@ -2,6 +2,8 @@ package com.mgt.plat.service;
 
 import com.mgt.plat.entity.PurchaseRecord;
 import com.mgt.plat.utils.ResultBean;
+
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -24,4 +26,5 @@ public interface PurchaseRecordService {
 
     ResultBean findPurchaseRecordListByPage(String ingredientId, String purchaseDate, Integer pageSize, Integer pageNum);
 
+    ResultBean exportPurchaseRecordFile(HttpServletResponse response);
 }

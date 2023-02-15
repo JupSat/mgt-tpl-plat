@@ -1,5 +1,6 @@
 package com.mgt.plat.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mgt.plat.entity.PurchaseRecord;
 import org.apache.ibatis.annotations.Param;
@@ -13,7 +14,7 @@ import java.util.List;
  * modification time：2023-02-05 21:09
  * modified content：
  **/
-public interface PurchaseRecordMapper {
+public interface PurchaseRecordMapper extends BaseMapper<PurchaseRecord>, BatchInsertMapper<PurchaseRecord>  {
     void addPurchaseRcd(List<PurchaseRecord> purchaseRecord);
 
     List<PurchaseRecord> findPurchaseRcdList(@Param("ingredientId") Integer ingredientId, @Param("purchaseDate") String purchaseDate);

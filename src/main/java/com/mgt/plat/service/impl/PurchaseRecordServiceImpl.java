@@ -4,11 +4,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mgt.plat.entity.PurchaseRecord;
 import com.mgt.plat.mapper.PurchaseRecordMapper;
 import com.mgt.plat.service.PurchaseRecordService;
+import com.mgt.plat.utils.ExcelExportBean;
 import com.mgt.plat.utils.ResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -105,6 +109,19 @@ import java.util.List;
             }
         }catch (Exception e){
             return ResultBean.ok("查询失败!");
+        }
+    }
+
+    @Resource
+    private ExcelExportBean excelExportBean;
+    @Override
+    public ResultBean exportPurchaseRecordFile(HttpServletResponse response) {
+        try{
+            List<PurchaseRecord> purchaseRecordList = purchaseRecordMapper.findPurchaseRcdList(null,null);
+            excelExportBean.export(response,  "采购记录" + System.currentTimeMillis(), purchaseRecordList, PurchaseRecord.class);
+            return ResultBean.ok("导出成功!",purchaseRecordList);
+        }catch (Exception e){
+            return ResultBean.ok("导出失败!");
         }
     }
 

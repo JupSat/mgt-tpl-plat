@@ -102,6 +102,18 @@
 			<artifactId>java-jwt</artifactId>
 			<version>4.2.2</version>
 		</dependency>
+		<!--  阿里开源的 excel 工具类库 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+			<version>3.2.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>poi-ooxml-schemas</artifactId>
+					<groupId>org.apache.poi</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 
 	<build>
