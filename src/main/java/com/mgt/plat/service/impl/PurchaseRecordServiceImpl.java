@@ -37,7 +37,7 @@ import java.util.List;
         }catch (Exception e){
             logger.error("新增失败!", e);
         }
-        return  ResultBean.ok("新增失败!");
+        return  ResultBean.error("新增失败!");
      }
 
     @Override
@@ -49,9 +49,9 @@ import java.util.List;
             }
         }catch (Exception e){
             logger.error("删除失败!", e);
-            return ResultBean.ok("删除失败!");
+            return ResultBean.error("删除失败!");
         }
-        return ResultBean.ok("无效ID!");
+        return ResultBean.error("无效ID!");
     }
 
     @Override
@@ -63,9 +63,9 @@ import java.util.List;
             }
         }catch (Exception e){
             logger.error("更新失败!", e);
-            return ResultBean.ok("更新失败");
+            return ResultBean.error("更新失败");
         }
-        return  ResultBean.ok("更新失败!");
+        return  ResultBean.error("更新失败!");
     }
 
     @Override
@@ -81,10 +81,10 @@ import java.util.List;
             if (purchaseRecordList.size()>0){
                 return ResultBean.ok("查询成功!",purchaseRecordList);
             }else{
-                return ResultBean.ok("您查询的数据不存在!");
+                return ResultBean.error("您查询的数据不存在!");
             }
         }catch (Exception e){
-            return ResultBean.ok("查询失败!");
+            return ResultBean.error("查询失败!");
         }
     }
 
@@ -105,23 +105,23 @@ import java.util.List;
             if (purchaseRecordList != null){
                 return ResultBean.ok("查询成功!",purchaseRecordList);
             }else{
-                return ResultBean.ok("您查询的数据不存在!");
+                return ResultBean.error("您查询的数据不存在!");
             }
         }catch (Exception e){
-            return ResultBean.ok("查询失败!");
+            return ResultBean.error("查询失败!");
         }
     }
 
     @Resource
     private ExcelExportBean excelExportBean;
     @Override
-    public ResultBean exportPurchaseRecordFile(HttpServletResponse response) {
+    public void exportPurchaseRecordFile(HttpServletResponse response) {
         try{
             List<PurchaseRecord> purchaseRecordList = purchaseRecordMapper.findPurchaseRcdList(null,null);
-            excelExportBean.export(response,  "采购记录" + System.currentTimeMillis(), purchaseRecordList, PurchaseRecord.class);
-            return ResultBean.ok("导出成功!",purchaseRecordList);
-        }catch (Exception e){
-            return ResultBean.ok("导出失败!");
+            excelExportBean.export(response,  "采购记录_" + System.currentTimeMillis(), purchaseRecordList, PurchaseRecord.class);
+         }catch (Exception e){
+//            return ResultBean.error("导出失败!");
+            logger.error("系统异常!", e);
         }
     }
 

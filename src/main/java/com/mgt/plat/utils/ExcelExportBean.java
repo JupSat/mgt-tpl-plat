@@ -36,10 +36,10 @@ public class ExcelExportBean {
      * @param clazz    封装数据的POJO
      * @param <T>      数据泛型
      */
-    public <T> void export(HttpServletResponse response, String fileName,
+    public <T> ResultBean export(HttpServletResponse response, String fileName,
                            List<T> data, Class<T> clazz) {
         try {
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
             response.setCharacterEncoding("utf-8");
             // URLEncoder.encode防止中文乱码
             String encodedFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8.name()).replaceAll("\\+", "%20");
@@ -53,11 +53,14 @@ public class ExcelExportBean {
                     .registerWriteHandler(getHorizontalCellStyleStrategy())
                     .doWrite(data);
             log.info("下载{}条记录到文件{}", data.size(), fileName);
+            return ResultBean.ok("下载成功！");
         } catch (Exception e) {
             e.printStackTrace();
             log.error("文件下载失败" + e.getMessage());
-            throw new RuntimeException("下载文件失败", e);
+//            throw new RuntimeException("下载文件失败", e);
+            return ResultBean.error("下载失败！");
         }
+
     }
 
     /**

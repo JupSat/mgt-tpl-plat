@@ -26,5 +26,5 @@ public interface PurchaseRecordService {
 
     ResultBean findPurchaseRecordListByPage(String ingredientId, String purchaseDate, Integer pageSize, Integer pageNum);
 
-    ResultBean exportPurchaseRecordFile(HttpServletResponse response);
+    void exportPurchaseRecordFile(HttpServletResponse response);
 }

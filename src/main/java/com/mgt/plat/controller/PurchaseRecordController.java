@@ -67,7 +67,7 @@ public class PurchaseRecordController {
     }
 
     @GetMapping("/export")
-    public ResultBean exportPurchaseRecord(HttpServletResponse response) {
-        return purchaseRecordService.exportPurchaseRecordFile(response);
+    public void exportPurchaseRecord(HttpServletResponse response) {
+        purchaseRecordService.exportPurchaseRecordFile(response);
     }
 }
