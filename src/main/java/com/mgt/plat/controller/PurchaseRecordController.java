@@ -2,9 +2,15 @@ package com.mgt.plat.controller;
 
 import com.mgt.plat.entity.PurchaseRecord;
 import com.mgt.plat.service.PurchaseRecordService;
+import com.mgt.plat.utils.ExcelComponent;
 import com.mgt.plat.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,5 +56,18 @@ public class PurchaseRecordController {
     @PostMapping("/delete")
     public ResultBean deletePurchaseRecordById(@RequestParam("id") Integer id){
         return purchaseRecordService.deletePurchaseRecord(id);
+    }
+
+    @Resource
+    private ExcelComponent excelComponent;
+
+    @PostMapping("/import")
+    public ResultBean importPurchaseRecord(@RequestParam("file") MultipartFile file) throws IOException {
+        return excelComponent.importPurchaseRecordFile(file);
+    }
+
+    @GetMapping("/export")
+    public void exportPurchaseRecord(HttpServletResponse response) {
+        purchaseRecordService.exportPurchaseRecordFile(response);
     }
 }

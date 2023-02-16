@@ -11,6 +11,16 @@
 			#{item.purchaser},#{item.note})
 		</foreach>
 	</insert>
+	<insert id="batchInsert" parameterType="List">
+		INSERT purchase_records
+		(purchase_date, ingredient_id, ingredient_catalog_id, unit, num, unit_price, budgetary, purchase_num, purchase_price, purchase_cost, gross_profit, vendor, purchaser, note)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.purchaseDate},#{item.ingredientId},#{item.ingredientCatalogId},#{item.unit},#{item.num},#{item.unitPrice},
+			#{item.budgetary},#{item.purchaseNum},#{item.purchasePrice},#{item.purchaseCost},#{item.grossProfit},#{item.vendor},
+			#{item.purchaser},#{item.note})
+		</foreach>
+	</insert>
 	<select id="findPurchaseRcdList" resultType="com.mgt.plat.entity.PurchaseRecord">
 		SELECT id, purchase_date, ingredient_id, ingredient_catalog_id, unit, num, unit_price, budgetary, purchase_num, purchase_price, purchase_cost, gross_profit, vendor, purchaser, note, create_time, update_time
 		FROM purchase_records
