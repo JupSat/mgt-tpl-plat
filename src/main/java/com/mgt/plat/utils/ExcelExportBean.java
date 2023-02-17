@@ -1,12 +1,14 @@
 package com.mgt.plat.utils;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.metadata.style.WriteFont;
 import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import com.google.common.net.HttpHeaders;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
@@ -36,7 +38,7 @@ public class ExcelExportBean {
      * @param clazz    封装数据的POJO
      * @param <T>      数据泛型
      */
-    public <T> ResultBean export(HttpServletResponse response, String fileName,
+    public <T> void export(HttpServletResponse response, String fileName,
                            List<T> data, Class<T> clazz) {
         try {
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
@@ -53,12 +55,10 @@ public class ExcelExportBean {
                     .registerWriteHandler(getHorizontalCellStyleStrategy())
                     .doWrite(data);
             log.info("下载{}条记录到文件{}", data.size(), fileName);
-            return ResultBean.ok("下载成功！");
-        } catch (Exception e) {
+         } catch (Exception e) {
             e.printStackTrace();
             log.error("文件下载失败" + e.getMessage());
 //            throw new RuntimeException("下载文件失败", e);
-            return ResultBean.error("下载失败！");
         }
 
     }
@@ -83,9 +83,14 @@ public class ExcelExportBean {
         /*内容策略*/
         WriteCellStyle contentWriteCellStyle = new WriteCellStyle();
         WriteFont contentWriteFont = new WriteFont();
-        contentWriteFont.setFontHeightInPoints((short) 12);
-        contentWriteCellStyle.setWriteFont(contentWriteFont);
+        contentWriteFont.setFontName("宋体");
+        contentWriteFont.setFontHeightInPoints((short) 11);
         contentWriteCellStyle.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        contentWriteCellStyle.setWriteFont(contentWriteFont);
+        contentWriteCellStyle.setBorderLeft(BorderStyle.THIN);
+        contentWriteCellStyle.setBorderTop(BorderStyle.THIN);
+        contentWriteCellStyle.setBorderRight(BorderStyle.THIN);
+        contentWriteCellStyle.setBorderBottom(BorderStyle.THIN);
 
         //自动换行
         contentWriteCellStyle.setWrapped(true);

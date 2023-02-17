@@ -26,9 +26,15 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         String login = "/user/login";
         String register = "/user/register";
         String getVerifyCode = "/captcha/getCaptcha";
+        String purchaseRecordImport = "/purchaseRecord/import"; // 后续需删除
+        String purchaseRecordExport = "/purchaseRecord/export"; // 后续需删除
+
         excludePath.add(login);
         excludePath.add(register);
         excludePath.add(getVerifyCode);
+        excludePath.add(purchaseRecordImport);
+        excludePath.add(purchaseRecordExport);
+
         registry.addInterceptor(tokenHandler).excludePathPatterns(excludePath);
     }
 }
