@@ -120,8 +120,7 @@ import java.util.List;
             List<PurchaseRecord> purchaseRecordList = purchaseRecordMapper.findPurchaseRcdList(null,null);
             excelExportBean.export(response,  "采购记录_" + System.currentTimeMillis(), purchaseRecordList, PurchaseRecord.class);
          }catch (Exception e){
-//            return ResultBean.error("导出失败!");
-            logger.error("系统异常!", e);
+             logger.error("系统异常!", e);
         }
     }
 

@@ -2,6 +2,7 @@ package com.mgt.plat.entity;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -28,6 +29,7 @@ public class PurchaseRecord {
     @TableId(value = "id", type = IdType.AUTO)
     @ExcelIgnore
     private Long id;
+    @ColumnWidth(12)
     @ExcelProperty(value = "日期")
     private String purchaseDate;
     @ExcelProperty(value = "食材名称")
@@ -66,10 +68,10 @@ public class PurchaseRecord {
 
     @ExcelProperty(value = "备注")
     private String note;
-
+    @ColumnWidth(22)
     @ExcelProperty(value = "创建时间")
     private Date createTime;
-
+    @ColumnWidth(22)
     @ExcelProperty(value = "更新时间")
     private Date updateTime;
 }
