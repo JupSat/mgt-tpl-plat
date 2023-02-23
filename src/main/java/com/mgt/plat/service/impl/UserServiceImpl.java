@@ -3,10 +3,7 @@ package com.mgt.plat.service.impl;
 import com.mgt.plat.entity.User;
 import com.mgt.plat.mapper.UserMapper;
 import com.mgt.plat.service.UserService;
-import com.mgt.plat.utils.CodeBean;
-import com.mgt.plat.utils.EmailBean;
-import com.mgt.plat.utils.ResultBean;
-import com.mgt.plat.utils.TokenUtil;
+import com.mgt.plat.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -14,7 +11,6 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 /**
@@ -40,7 +36,7 @@ public class UserServiceImpl implements UserService {
         CodeBean codeBean = new CodeBean();
 
         if (validCod.isEmpty()) {
-           return ResultBean.ok("验证码不能为空！");
+            return ResultBean.ok("验证码不能为空！");
         }
 
         String emailCode = (String) session.getAttribute("emailCode");
@@ -49,7 +45,7 @@ public class UserServiceImpl implements UserService {
         }
 
         try {
-            if (!ObjectUtils.isEmpty(username)) {
+            if (ObjectUtils.isEmpty(username)) {
                 codeBean.setCode(0);
                 codeBean.setMsg("用户名不能为空！");
                 return ResultBean.error("用户名不能为空！", codeBean);
@@ -63,11 +59,11 @@ public class UserServiceImpl implements UserService {
             }
 
             User user = new User();
-            user.setPassword(password).setEmail(email);
+            user.setUsername(username).setPassword(AES256Util.encryptCBC(password)).setEmail(email);
             code = userMapper.insertUser(user);
             System.out.println(user);
 
-            if(code >= 1){
+            if (code >= 1) {
                 codeBean.setCode(1);
                 codeBean.setMsg("注册成功");
                 return ResultBean.ok("注册成功", codeBean);
@@ -121,7 +117,7 @@ public class UserServiceImpl implements UserService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultBean.error("修改失败",e.getMessage());
+            return ResultBean.error("修改失败", e.getMessage());
         }
     }
 
@@ -131,14 +127,14 @@ public class UserServiceImpl implements UserService {
         String password = params.get("password").trim();
 
         CodeBean codeBean = new CodeBean();
-        if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password) ){
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             codeBean.setMsg("用户名或密码不能为空！");
             return ResultBean.ok(codeBean.getMsg(), codeBean);
         }
 
         String captchaVal = (String) session.getAttribute("captchaKey");
         String captcha = params.get("captcha").trim();
-        if(StringUtils.isEmpty(captcha)){
+        if (StringUtils.isEmpty(captcha)) {
             codeBean.setMsg("验证码不能为空！");
             return ResultBean.ok(codeBean.getMsg(), codeBean);
         }
@@ -149,18 +145,18 @@ public class UserServiceImpl implements UserService {
             return ResultBean.ok("验证码错误！", codeBean);
         }
 
-        //获取主体对象
+//        获取主体对象
 //        Subject subject = SecurityUtils.getSubject();
-
-        // 获得token
+//
+//        获得token
 //        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 //        subject.login(token);
 
         try {
-            User user = this.findUser(username, password);
+            User user = this.findUser(username, AES256Util.encryptCBC(password));
             if (user != null) {
                 codeBean.setCode(1);
-                String token = TokenUtil.createToken(username,password);
+                String token = TokenUtil.createToken(username, password);
                 codeBean.setToken(token);
                 codeBean.setMsg("登录成功！");
                 session.setAttribute("loginUser", user);
@@ -188,7 +184,7 @@ public class UserServiceImpl implements UserService {
             return ResultBean.ok("退出登录！", codeBean);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultBean.error("退出失败",e.getMessage());
+            return ResultBean.error("退出失败", e.getMessage());
         }
     }
 }

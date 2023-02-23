@@ -24,6 +24,6 @@ public interface UserMapper extends BaseMapper<User> {
     @Update("update user_info set password = #{password} where email = #{email}")
     int updUserPwd(@Param(value = "email") String email, @Param(value = "password") String password);
 
-    @Insert("insert into user_info(username,password,email,create_time)VALUES(#{username}, #{password},#{email},#{createTime})")
+    @Insert("insert into user_info(username,password,email)VALUES(#{username}, #{password},#{email})")
     int insertUser(User user);
 }

@@ -1,6 +1,12 @@
 package com.mgt.plat.utils;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Base64;
 
 /**
  * package name：com.mgt.plat.utils
@@ -26,8 +32,8 @@ public class AES256Util {
      * 加密解密算法/加密模式/填充方式
      */
     private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
-    private static final java.util.Base64.Encoder base64Encoder = java.util.Base64.getEncoder();
-    private static final java.util.Base64.Decoder base64Decoder = java.util.Base64.getDecoder();
+    private static final Base64.Encoder base64Encoder = Base64.getEncoder();
+    private static final Base64.Decoder base64Decoder = Base64.getDecoder();
 
     static {
         java.security.Security.setProperty("crypto.policy", "unlimited");
@@ -36,15 +42,14 @@ public class AES256Util {
     /**
      * AES加密
      */
-    public static String encode(String key, String content) {
+    public static String encryptCBC(String content) {
         try {
-            javax.crypto.SecretKey secretKey = new javax.crypto.spec.SecretKeySpec(key.getBytes(), AES);
-            javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance(CIPHER_ALGORITHM);
-            cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, secretKey, new javax.crypto.spec.IvParameterSpec(KEY_VI));
-            System.out.println("KEY_VI:" + Arrays.toString(KEY_VI));
+            SecretKey secretKey = new SecretKeySpec(DEFAULT_SECRET_KEY.getBytes(), AES);
+            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(KEY_VI));
 
             // 获取加密内容的字节数组(这里要设置为utf-8)不然内容中如果有中文和英文混合中文就会解密为乱码
-            byte[] byteEncode = content.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+            byte[] byteEncode = content.getBytes( StandardCharsets.UTF_8);
 
             // 根据密码器的初始化方式加密
             byte[] byteAES = cipher.doFinal(byteEncode);
@@ -60,16 +65,17 @@ public class AES256Util {
     /**
      * AES解密
      */
-    public static String decode(String key, String content) {
+    public static String decryptCBC(String content) {
         try {
-            javax.crypto.SecretKey secretKey = new javax.crypto.spec.SecretKeySpec(key.getBytes(), AES);
-            javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance(CIPHER_ALGORITHM);
-            cipher.init(javax.crypto.Cipher.DECRYPT_MODE, secretKey, new javax.crypto.spec.IvParameterSpec(KEY_VI));
+            SecretKey secretKey = new SecretKeySpec(DEFAULT_SECRET_KEY.getBytes(), AES);
+            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(KEY_VI));
             // 将加密并编码后的内容解码成字节数组
             byte[] byteContent = base64Decoder.decode(content);
-            // 解密
+
+             // 解密
             byte[] byteDecode = cipher.doFinal(byteContent);
-            return new String(byteDecode, java.nio.charset.StandardCharsets.UTF_8);
+            return new String(byteDecode, StandardCharsets.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
         }
