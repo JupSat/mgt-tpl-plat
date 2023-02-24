@@ -1,10 +1,13 @@
 package com.mgt.plat.controller;
 
+import com.mgt.plat.service.CaptchaService;
+import com.mgt.plat.service.PurchaseRecordService;
 import com.mgt.plat.utils.CaptchaBean;
 import com.mgt.plat.utils.ResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
- import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,20 +23,14 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/captcha")
 public class CaptchaController {
-    private final static Logger logger = LoggerFactory.getLogger(CaptchaController.class);
+    @Autowired
+    private CaptchaService captchaService;
 
     /**
      * 获取验证码
      */
     @PostMapping("/getCaptcha")
     public ResultBean getCaptcha(HttpSession session) {
-        try {
-            CaptchaBean captchaBean = new CaptchaBean();
-            session.setAttribute("captchaKey", captchaBean.getCaptcha());
-            return ResultBean.ok("获取验证码成功", captchaBean);
-        } catch (Exception e) {
-            logger.error("获取验证码失败", e);
-            return ResultBean.ok("获取验证码失败");
-        }
+        return captchaService.getCaptcha(session);
     }
 }
