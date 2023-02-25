@@ -1,11 +1,7 @@
 package com.mgt.plat.controller;
 
 import com.mgt.plat.service.CaptchaService;
-import com.mgt.plat.service.PurchaseRecordService;
-import com.mgt.plat.utils.CaptchaBean;
 import com.mgt.plat.utils.ResultBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
