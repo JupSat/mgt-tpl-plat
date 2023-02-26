@@ -6,6 +6,7 @@ import com.mgt.plat.utils.CaptchaBean;
 import com.mgt.plat.utils.ResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
  * modification time：2023-02-24 20:09
  * modified content：
  **/
+@Service
 public class CaptchaServiceImpl implements CaptchaService {
     private final static Logger logger = LoggerFactory.getLogger(CaptchaController.class);
 
