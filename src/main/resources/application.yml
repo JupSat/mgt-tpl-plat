@@ -9,6 +9,14 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:3306/mgt_tpl?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    encoding: UTF-8 #编码
+    suffix: .html #模板后缀
+    mode: HTML #模板
+    servlet:
+      content-type=text/html:
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
