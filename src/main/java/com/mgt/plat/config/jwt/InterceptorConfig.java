@@ -30,11 +30,14 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         String purchaseRecordImport = "/purchaseRecord/import"; // 后续需删除
         String purchaseRecordExport = "/purchaseRecord/export"; // 后续需删除
 
+        String thymeleaf = "/thymeleaf/test"; // 后续需删除
+
         excludePath.add(login);
         excludePath.add(register);
         excludePath.add(getVerifyCode);
         excludePath.add(purchaseRecordImport);
         excludePath.add(purchaseRecordExport);
+        excludePath.add(thymeleaf);
 
         excludePath.add("/swagger-resources/**");
         excludePath.add("/webjars/**");
