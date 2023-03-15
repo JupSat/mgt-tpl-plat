@@ -1,19 +1,13 @@
 package com.mgt.plat.controller;
 
-import com.mgt.plat.entity.User;
 import com.mgt.plat.service.UserService;
-import com.mgt.plat.utils.CodeBean;
-import com.mgt.plat.utils.EmailBean;
 import com.mgt.plat.utils.ResultBean;
-import com.mgt.plat.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 /**
@@ -31,7 +25,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResultBean register(@RequestBody HashMap<String, String> params, HttpSession session) {
+    public ResultBean register(@RequestBody @Validated HashMap<String, String> params, HttpSession session) {
         return userService.registerUser(params, session);
     }
 
@@ -41,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResultBean login(@RequestBody HashMap<String, String> params, HttpSession session) {
+    public ResultBean login(@RequestBody @Validated HashMap<String, String> params, HttpSession session) {
         return userService.login(params, session);
     }
 
