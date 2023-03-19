@@ -4,7 +4,7 @@ scan：当此属性设置为true时，配置文件如果发生改变，将会被
 scanPeriod：设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒当scan为true时，此属性生效。默认的时间间隔为1分钟。
 debug：当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
 -->
-<configuration scan="false" scanPeriod="60 seconds" debug="false">
+<configuration debug="false">
     <!-- 定义日志的根目录   建议写绝对路径   如果不写默认在项目运行的根路径( D盘,C盘这种)-->
     <property name="LOG_HOME" value="D:/app/log" />
     <!-- 定义日志文件名称 -->
@@ -87,10 +87,8 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         <file>${LOG_HOME}/log_info.log</file>
         <!--日志文件输出格式-->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-
             <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>-->
             <pattern>
-
                 <pattern>
                     {
                     "app": "${APP_NAME}",
@@ -167,10 +165,8 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         <file>${LOG_HOME}/log_error.log</file>
         <!--日志文件输出格式-->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-
             <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>-->
             <pattern>
-
                 <pattern>
                     {
                     "app": "${APP_NAME}",
@@ -203,11 +199,9 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
 
     <appender name="LOGSTASH" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
-
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
-
     </appender>
     <!-- 日志输出级别 -->
     <root level="INFO">
