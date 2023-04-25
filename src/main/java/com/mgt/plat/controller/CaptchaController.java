@@ -2,7 +2,7 @@ package com.mgt.plat.controller;
 
 import com.mgt.plat.service.CaptchaService;
 import com.mgt.plat.utils.CaptchaBean;
-import com.mgt.plat.utils.Result;
+import com.mgt.plat.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,7 @@ public class CaptchaController {
      * 获取验证码
      */
     @PostMapping("/getCaptcha")
-    public Result<CaptchaBean> getCaptcha(HttpSession session) {
+    public ResultBean<CaptchaBean> getCaptcha(HttpSession session) {
         return captchaService.getCaptcha(session);
     }
 }
