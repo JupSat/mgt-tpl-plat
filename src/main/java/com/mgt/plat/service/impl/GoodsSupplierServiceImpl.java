@@ -6,6 +6,7 @@ import com.mgt.plat.entity.GoodsSupplier;
 import com.mgt.plat.mapper.GoodsSupplierMapper;
 import com.mgt.plat.service.GoodsSupplierService;
 import com.mgt.plat.utils.ResultBean;
+import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class GoodsSupplierServiceImpl extends ServiceImpl<GoodsSupplierMapper, G
     private GoodsSupplierMapper goodsSupplierMapper;
 
     @Override
-    public ResultBean addSupplier(GoodsSupplier goodsSupplier) {
+    public ResultBean<T> addSupplier(GoodsSupplier goodsSupplier) {
         try {
             QueryWrapper<GoodsSupplier> wrapper = new QueryWrapper<>();
             wrapper.eq("name", goodsSupplier.getName());
@@ -36,82 +37,82 @@ public class GoodsSupplierServiceImpl extends ServiceImpl<GoodsSupplierMapper, G
             if (gs == null) {
                 int num = goodsSupplierMapper.insert(goodsSupplier);;
                 if (num>0){
-                    return ResultBean.ok("新增成功!",true);
+                    return ResultBean.success("新增成功!");
                 }
             }  else {
-                return ResultBean.warn(goodsSupplier.getName() + "已存在!");
+                return ResultBean.error(goodsSupplier.getName() + "已存在!");
             }
         }catch (Exception e){
 //            e.printStackTrace();
             logger.error("系统异常!", e);
-            return ResultBean.ok("系统异常！",false);
+            return ResultBean.error("系统异常！");
         }
 
-        return ResultBean.ok("新增失败!",false);
+        return ResultBean.error("新增失败!");
     }
 
     @Override
-    public ResultBean batchAddSupplier(List<GoodsSupplier> goodsSupplierList) {
+    public ResultBean<T> batchAddSupplier(List<GoodsSupplier> goodsSupplierList) {
 //        goodsSupplierMapper.batchInsertData(goodsSupplierList);
 //       return this.saveOrUpdateBatch(goodsSupplierList);
         return null;
     }
 
     @Override
-    public ResultBean findByName(String name) {
+    public ResultBean<T> findByName(String name) {
         QueryWrapper<GoodsSupplier> wrapper = new QueryWrapper<>();
         wrapper.eq("name", name);
 //        return goodsSupplierMapper.selectList(wrapper).stream().findFirst().orElse(null);
         return null;
     }
     @Override
-    public ResultBean findById(String id) {
+    public ResultBean<T> findById(String id) {
 //        return goodsSupplierMapper.querySupplierById(id);
           return  null;
     }
 
     @Override
-    public ResultBean findAllByName(String name) {
+    public ResultBean<List<GoodsSupplier>> findAllByName(String name) {
         QueryWrapper<GoodsSupplier> wrapper = new QueryWrapper<>();
         wrapper.like("name", name);
         try{
             List<GoodsSupplier> list = goodsSupplierMapper.selectList(wrapper);
             if (list.size()>0){
-                return ResultBean.ok("查询成功！",list);
+                return ResultBean.success("查询成功！",list);
             }
         }catch (Exception e){
             logger.error("系统异常!", e);
-            return ResultBean.ok("系统异常！",null);
+            return ResultBean.error("系统异常！" );
         }
-        return ResultBean.ok("您查找的内容不存在！",null);
+        return ResultBean.error("您查找的内容不存在！" );
     }
 
     @Override
-    public ResultBean updateSupplier(GoodsSupplier goodsSupplier) {
+    public ResultBean<T> updateSupplier(GoodsSupplier goodsSupplier) {
         try{
             int flag = goodsSupplierMapper.updateById(goodsSupplier);
             if (flag > 0){
-                return ResultBean.ok("修改成功!","success");
+                return ResultBean.success("修改成功!");
             }
         } catch (Exception e){
             logger.error("系统异常!",e);
-            return ResultBean.ok("系统异常！","error");
+            return ResultBean.error("系统异常！");
         }
-        return ResultBean.ok("修改失败，请检查字段合法性!","error");
+        return ResultBean.error("修改失败，请检查字段合法性!");
     }
 
     @Override
-    public ResultBean deleteById(Long id) {
+    public ResultBean<T> deleteById(Long id) {
          try {
             int num = goodsSupplierMapper.deleteById(id);
             if (num>0){
-                return ResultBean.ok("删除成功!");
+                return ResultBean.success("删除成功!");
             }
         }catch (Exception e){
             logger.error("删除失败!", e);
-            return ResultBean.ok("删除失败!");
+            return ResultBean.error("删除失败!");
         }
-        return ResultBean.ok("无效ID!");
+        return ResultBean.error("无效ID!");
     }
 
 }

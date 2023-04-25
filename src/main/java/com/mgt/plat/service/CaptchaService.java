@@ -1,7 +1,7 @@
 package com.mgt.plat.service;
 
 import com.mgt.plat.utils.CaptchaBean;
-import com.mgt.plat.utils.Result;
+import com.mgt.plat.utils.ResultBean;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,5 +13,5 @@ import javax.servlet.http.HttpSession;
  * modified content：
  **/
 public interface CaptchaService {
-    Result<CaptchaBean> getCaptcha(HttpSession session);
+    ResultBean<CaptchaBean> getCaptcha(HttpSession session);
 }

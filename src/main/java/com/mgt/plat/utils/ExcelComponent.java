@@ -5,6 +5,7 @@ import com.mgt.plat.entity.PurchaseRecord;
 import com.mgt.plat.mapper.BatchInsertMapper;
 import com.mgt.plat.mapper.PurchaseRecordMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +15,7 @@ import java.io.IOException;
 /**
  * package name：com.mgt.plat.utils
  * description：
- * user：AlexDU
+ * user：JupSat
  * modification time：2023-02-14 17:30
  * modified content：
  **/
@@ -29,7 +30,7 @@ public class ExcelComponent {
      * @param file 上传的文件
      * @throws IOException 读取文件异常
      */
-    public ResultBean importPurchaseRecordFile(MultipartFile file) throws IOException {
+    public ResultBean<T> importPurchaseRecordFile(MultipartFile file) throws IOException {
           try{
               EasyExcel.read(file.getInputStream())
                       .head(PurchaseRecord.class)
@@ -39,7 +40,7 @@ public class ExcelComponent {
                               return purchaseRecordMapper;
                           }
                       }).sheet().doRead();
-              return ResultBean.ok("导入成功!", null);
+              return ResultBean.success("导入成功!", null);
           } catch (Exception e) {
                 e.printStackTrace();
                 log.error("导入失败" + e.getMessage());

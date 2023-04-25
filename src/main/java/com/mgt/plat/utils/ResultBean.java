@@ -8,47 +8,92 @@ import lombok.NoArgsConstructor;
  * package name：com.mgt.plat.utils
  * description：
  * user：JupSat
- * modification time：2022-12-17 12:49
+ * modification time：2023-04-24 19:59
  * modified content：
  **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResultBean {
-    private Integer status = 0;
+public class ResultBean<T> {
+    // 操作成功状态码为 0
+    public static final int SUCCESS_CODE = 0;
+    // 操作失败状态码为 1
+    public static final int ERROR_CODE = 1;
+    // 操作失败，缺少参数
+    public static final int MISSING_PARAMETERS_ERROR_CODE = 40001;
+    // 状态码
+    private int code;
+    // 提示信息
     private String msg;
-    private Object result;
-
-    public static ResultBean build() {
-        return new ResultBean();
+    // 响应数据
+    private T data;
+    /**
+     * 操作成功，带有响应数据
+     *
+     * @param data 响应数据
+     * @param <T>  响应数据类型
+     * @return ResultBean
+     */
+    public static <T> ResultBean<T> success(T data) {
+        ResultBean<T> ResultBean = new ResultBean<>();
+        ResultBean.setCode(SUCCESS_CODE);
+        ResultBean.setMsg("操作成功");
+        ResultBean.setData(data);
+        return ResultBean;
     }
-
-    public static ResultBean ok(String msg) {
-        return new ResultBean(200, msg, null);
+    /**
+     * 操作成功，带有响应数据（1）
+     *
+     * @param <T>  响应数据类型
+     * @return ResultBean
+     */
+    public static <T> ResultBean<T> success(String message) {
+        ResultBean<T> ResultBean = new ResultBean<>();
+        ResultBean.setCode(SUCCESS_CODE);
+        ResultBean.setMsg(message);
+        return ResultBean;
     }
-
-    public static ResultBean ok(String msg, Object result) {
-        return new ResultBean(200, msg, result);
+    /**
+     * 操作成功，带有响应数据（2）
+     *
+     * @param data 响应数据
+     * @param <T>  响应数据类型
+     * @return ResultBean
+     */
+    public static <T> ResultBean<T> success(String message, T data) {
+        ResultBean<T> ResultBean = new ResultBean<>();
+        ResultBean.setCode(SUCCESS_CODE);
+        ResultBean.setMsg(message);
+        ResultBean.setData(data);
+        return ResultBean;
     }
-
-    public static ResultBean ok(Object result) {
-        return new ResultBean(200, "ok", result);
+    /**
+     * 操作成功，不带响应数据
+     *
+     * @return ResultBean
+     */
+    public static ResultBean<Void> success() {
+        return success(null);
     }
-
-    public static ResultBean warn(String msg) {
-        return new ResultBean(204, msg, null);
+    /**
+     * 操作失败，带有错误信息
+     *
+     * @param message 错误信息
+     * @param <T>     响应数据类型
+     * @return ResultBean
+     */
+    public static <T> ResultBean<T> error(String message) {
+        ResultBean<T> ResultBean = new ResultBean<>();
+        ResultBean.setCode(ERROR_CODE);
+        ResultBean.setMsg(message);
+        return ResultBean;
     }
-
-    public static ResultBean warn(String msg, Object result) {
-        return new ResultBean(204, msg, result);
+    /**
+     * 操作失败，缺少参数
+     *
+     * @return ResultBean
+     */
+    public static ResultBean<Void> missingParametersError() {
+        return error("缺少参数");
     }
-
-    public static ResultBean error(String msg) {
-        return new ResultBean(500, msg, null);
-    }
-
-    public static ResultBean error(String msg, Object result) {
-        return new ResultBean(500, msg, result);
-    }
-
 }

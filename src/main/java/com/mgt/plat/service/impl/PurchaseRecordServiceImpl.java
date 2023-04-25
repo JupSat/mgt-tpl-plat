@@ -6,6 +6,7 @@ import com.mgt.plat.mapper.PurchaseRecordMapper;
 import com.mgt.plat.service.PurchaseRecordService;
 import com.mgt.plat.utils.ExcelExportBean;
 import com.mgt.plat.utils.ResultBean;
+import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,11 @@ import java.util.List;
     private PurchaseRecordMapper purchaseRecordMapper;
 
     @Override
-    public ResultBean insertPurchaseRecord(List<PurchaseRecord> purchaseRecord) {
+    public ResultBean<T> insertPurchaseRecord(List<PurchaseRecord> purchaseRecord) {
         try {
             purchaseRecordMapper.addPurchaseRcd(purchaseRecord);
             System.out.print(purchaseRecord);
-            return  ResultBean.ok("新增成功");
+            return  ResultBean.success("新增成功");
         }catch (Exception e){
             logger.error("新增失败!", e);
         }
@@ -41,11 +42,11 @@ import java.util.List;
      }
 
     @Override
-    public ResultBean deletePurchaseRecord(Integer id) {
+    public ResultBean<T> deletePurchaseRecord(Integer id) {
         try {
             Integer type = purchaseRecordMapper.deletePurchaseRcdById(id);
             if (type>0){
-                return ResultBean.ok("删除成功!");
+                return ResultBean.success("删除成功!");
             }
         }catch (Exception e){
             logger.error("删除失败!", e);
@@ -55,11 +56,11 @@ import java.util.List;
     }
 
     @Override
-    public ResultBean updatePurchaseRecord(PurchaseRecord purchaseRecord) {
+    public ResultBean<T> updatePurchaseRecord(PurchaseRecord purchaseRecord) {
         try {
             Integer type = purchaseRecordMapper.updatePurchaseRcdById(purchaseRecord);
             if (type==1){
-                return ResultBean.ok("数据更新成功");
+                return ResultBean.success("数据更新成功");
             }
         }catch (Exception e){
             logger.error("更新失败!", e);
@@ -69,7 +70,7 @@ import java.util.List;
     }
 
     @Override
-    public ResultBean findPurchaseRecordList(String ingredientId, String purchaseDate) {
+    public ResultBean<List<PurchaseRecord>> findPurchaseRecordList(String ingredientId, String purchaseDate) {
         try{
             int tempIngredientId;
             if (ingredientId == null || ingredientId.equals("")) {
@@ -79,7 +80,7 @@ import java.util.List;
             }
             List<PurchaseRecord> purchaseRecordList = purchaseRecordMapper.findPurchaseRcdList(tempIngredientId, purchaseDate);
             if (purchaseRecordList.size()>0){
-                return ResultBean.ok("查询成功!",purchaseRecordList);
+                return ResultBean.success("查询成功!",purchaseRecordList);
             }else{
                 return ResultBean.error("您查询的数据不存在!");
             }
@@ -89,7 +90,7 @@ import java.util.List;
     }
 
     @Override
-    public ResultBean findPurchaseRecordListByPage(String ingredientId, String purchaseDate, Integer pageSize, Integer pageNum) {
+    public ResultBean<IPage<PurchaseRecord>> findPurchaseRecordListByPage(String ingredientId, String purchaseDate, Integer pageSize, Integer pageNum) {
         try{
             int tempIngredientId;
             if (ingredientId == null || ingredientId.equals("")) {
@@ -103,7 +104,7 @@ import java.util.List;
 //            List<PurchaseRecord> purchaseRecordList =
 //                    purchaseRecordMapper.findPurchaseRcdListByPage(tempIngredientId, purchaseDate, pageSize, pageNum);
             if (purchaseRecordList != null){
-                return ResultBean.ok("查询成功!",purchaseRecordList);
+                return ResultBean.success("查询成功!",purchaseRecordList);
             }else{
                 return ResultBean.error("您查询的数据不存在!");
             }
@@ -125,7 +126,7 @@ import java.util.List;
     }
 
     @Override
-    public ResultBean findPurchaseRecordById(Integer number) {
+    public ResultBean<T> findPurchaseRecordById(Integer number) {
         return null;
     }
 }
