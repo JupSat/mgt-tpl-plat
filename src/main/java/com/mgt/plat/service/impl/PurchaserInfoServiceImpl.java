@@ -5,6 +5,7 @@ import com.mgt.plat.mapper.PurchaserInfoMapper;
 import com.mgt.plat.service.PurchaserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mgt.plat.utils.ResultBean;
+import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,31 +27,31 @@ public class PurchaserInfoServiceImpl extends ServiceImpl<PurchaserInfoMapper, P
     private PurchaserInfoMapper PurchaserInfoMapper;
 
     @Override
-    public ResultBean findPurchaserList() {
+    public ResultBean<List<PurchaserInfo>> findPurchaserList() {
         try{
             List<PurchaserInfo> purchaserList = PurchaserInfoMapper.findPurchaserList();
             if (purchaserList.size()>0){
-                return ResultBean.ok("查询成功!",purchaserList);
+                return ResultBean.success("查询成功!",purchaserList);
             }else{
-                return ResultBean.ok("您查询的数据不存在!");
+                return ResultBean.success("您查询的数据不存在!");
             }
         }catch (Exception e){
-            return ResultBean.ok("查询失败!");
+            return ResultBean.success("查询失败!");
         }
     }
 
     @Override
-    public ResultBean addPurchaser(PurchaserInfo purchaserInfo) {
+    public ResultBean<T> addPurchaser(PurchaserInfo purchaserInfo) {
         try {
             int num = PurchaserInfoMapper.insert(purchaserInfo);;
             if (num>0){
-                return ResultBean.ok("新增成功!",true);
+                return ResultBean.success("新增成功!");
             }
         }catch (Exception e){
              logger.error("系统异常!", e);
-             return ResultBean.ok("系统异常！",false);
+             return ResultBean.error("系统异常！");
         }
 
-        return ResultBean.ok("新增失败!",false);
+        return ResultBean.error("新增失败!" );
     }
 }

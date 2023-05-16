@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
+
 /**
  * package name：com.mgt.plat.service.impl
  * description：
@@ -22,14 +23,14 @@ public class CaptchaServiceImpl implements CaptchaService {
     private final static Logger logger = LoggerFactory.getLogger(CaptchaController.class);
 
     @Override
-    public ResultBean getCaptcha(HttpSession session) {
+    public ResultBean<CaptchaBean> getCaptcha(HttpSession session) {
         try {
             CaptchaBean captchaBean = new CaptchaBean();
             session.setAttribute("captchaKey", captchaBean.getCaptcha());
-            return ResultBean.ok("获取验证码成功", captchaBean);
+            return ResultBean.success(captchaBean);
         } catch (Exception e) {
             logger.error("获取验证码失败", e);
-            return ResultBean.ok("获取验证码失败");
+            return ResultBean.error("获取验证码失败");
         }
     }
 }

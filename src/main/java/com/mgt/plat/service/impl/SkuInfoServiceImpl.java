@@ -4,6 +4,7 @@ import com.mgt.plat.entity.SkuInfo;
 import com.mgt.plat.mapper.SkuInfoMapper;
 import com.mgt.plat.service.SkuInfoService;
 import com.mgt.plat.utils.ResultBean;
+import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,53 +26,53 @@ public class SkuInfoServiceImpl implements SkuInfoService {
     @Autowired
     private SkuInfoMapper skuInfoMapper;
     @Override
-    public ResultBean insertSkuInfo(List<SkuInfo> list) {
+    public ResultBean<T> insertSkuInfo(List<SkuInfo> list) {
         try {
             skuInfoMapper.addSkuInfo(list);
-            return  ResultBean.ok("新增成功");
+            return  ResultBean.success("新增成功");
         }catch (Exception e){
             logger.error("新增失败!", e);
         }
-        return  ResultBean.ok("新增失败!");
+        return  ResultBean.success("新增失败!");
     }
 
     @Override
-    public ResultBean deleteSkuInfo(Integer id) {
+    public ResultBean<T> deleteSkuInfo(Integer id) {
         try {
             Integer type = skuInfoMapper.deleteSkuInfoById(id);
             if (type>0){
-                return ResultBean.ok("删除成功!");
+                return ResultBean.success("删除成功!");
             }
         }catch (Exception e){
             logger.error("删除失败!", e);
-            return ResultBean.ok("删除失败!");
+            return ResultBean.success("删除失败!");
         }
-        return ResultBean.ok("无效ID!");
+        return ResultBean.success("无效ID!");
     }
 
     @Override
-    public ResultBean updateSkuInfoById(SkuInfo skuInfo) {
+    public ResultBean<T> updateSkuInfoById(SkuInfo skuInfo) {
         try {
             Integer type = skuInfoMapper.updateSkuInfoById(skuInfo);
             if (type==1){
-                return ResultBean.ok("数据更新成功");
+                return ResultBean.success("数据更新成功");
             }
         }catch (Exception e){
             logger.error("更新失败!", e);
-            return ResultBean.ok("更新失败");
+            return ResultBean.success("更新失败");
         }
-        return  ResultBean.ok("更新失败!");
+        return  ResultBean.success("更新失败!");
     }
 
 
 
     @Override
-    public ResultBean findSkuInfoList(SkuInfo skuInfo) {
+    public ResultBean<List<SkuInfo>> findSkuInfoList(SkuInfo skuInfo) {
         try{
             List<SkuInfo> skuInfoList = skuInfoMapper.findSkuInfoList(skuInfo);
-            return ResultBean.ok("查询成功!",skuInfoList);
+            return ResultBean.success("查询成功!",skuInfoList);
         }catch (Exception e){
-            return ResultBean.ok("查询失败!");
+            return ResultBean.success("查询失败!");
         }
     }
 }
