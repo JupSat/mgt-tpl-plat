@@ -67,6 +67,13 @@ public class ResultBean<T> {
         ResultBean.setData(data);
         return ResultBean;
     }
+    public static <T> ResultBean<T> success(String message, T data,Integer code) {
+        ResultBean<T> ResultBean = new ResultBean<>();
+        ResultBean.setCode(SUCCESS_CODE);
+        ResultBean.setMsg(message);
+        ResultBean.setData(data);
+        return ResultBean;
+    }
     /**
      * 操作成功，不带响应数据
      *

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgt.plat.mapper.well.NodeInfoMapper">
+    <resultMap id="goodsSupplier" type="com.mgt.plat.entity.GoodsSupplier">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="contact" property="contact"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="remarks" property="remarks"/>
+    </resultMap>
+
+    <insert id="addNodeInfo" parameterType="com.mgt.plat.entity.well.NodeInfo">
+        INSERT INTO node_info(node_id,node_name,node_picture,node_remark,node_create,node_update,well_id,well_name,node_num,node_state)
+        VALUES(#{nodeInfo.nodeId},#{nodeInfo.nodeName},#{nodeInfo.nodePicture},#{nodeInfo.nodeRemark},#{nodeInfo.nodeCreate},#{nodeInfo.nodeUpdate},#{nodeInfo.wellId},#{nodeInfo.wellName},#{nodeInfo.nodeNum},#{nodeInfo.nodeState})
+    </insert>
+    <update id="updateByIds">
+
+    </update>
+    <select id="findNodeInfoByName" resultType="com.mgt.plat.entity.well.NodeInfo">
+        select * from node_info where node_num=#{nodeInfo.nodeNum} and well_id=#{nodeInfo.wellId}
+    </select>
+    <select id="selectBaNames" resultType="com.mgt.plat.entity.well.NodeInfo">
+        SELECT * from node_info where well_id =#{wellId}
+    </select>
+</mapper>

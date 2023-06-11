@@ -17,6 +17,13 @@ spring:
     mode: HTML #模板
     servlet:
       content-type=text/html:
+  cloud:
+    alicloud:
+      access-key: LTAI5t5b7HtCjSptYgfWfvhy
+      secret-key: dMSlfMZsMO7HC5464WELfjKWvzgsGz
+      oss:
+        endpoint: oss-cn-guangzhou.aliyuncs.com
+        bucket: mgt-tpl
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml

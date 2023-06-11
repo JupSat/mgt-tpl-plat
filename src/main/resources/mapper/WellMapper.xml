@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgt.plat.mapper.well.WellMapper">
+    <resultMap id="goodsSupplier" type="com.mgt.plat.entity.GoodsSupplier">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="contact" property="contact"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="remarks" property="remarks"/>
+    </resultMap>
+    <insert id="addWellInfo">
+
+    </insert>
+    <select id="findWellInfo" resultType="com.mgt.plat.entity.well.WellInfo">
+        select * from well_info
+    </select>
+
+</mapper>
