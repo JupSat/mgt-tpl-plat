@@ -27,7 +27,6 @@ public class WellServiceImpl implements WellService {
             x.setNodeInfoList(nodeInfo);
 
         });
-        System.out.println(list);
         return list;
     }
 

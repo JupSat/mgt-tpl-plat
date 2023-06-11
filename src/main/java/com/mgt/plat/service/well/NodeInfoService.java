@@ -11,5 +11,5 @@ public interface NodeInfoService {
 
     ResultBean UpdateNodeInfo(NodeInfo nodeInfo);
 
-    ResultBean<NodeInfo> findNodeInfoByName(NodeInfo nodeInfo);
+    ResultBean<NodeInfo> findNodeInfoByName(String nodeId);
 }

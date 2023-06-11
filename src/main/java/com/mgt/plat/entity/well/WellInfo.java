@@ -22,12 +22,15 @@ import java.util.List;
 @NoArgsConstructor
 @TableName(value = "well_info")
 public class WellInfo extends BaseEntity implements Serializable {
-
+    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty(value = "主线id")
     private String wellId;
 
     @ApiModelProperty(value = "主线name")
     private String wellName;
+
+    @ApiModelProperty(value = "主线标识")
+    private Integer wellNum;
 
     @TableField(exist = false)
     @ApiModelProperty(value = "主线name")

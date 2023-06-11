@@ -24,11 +24,12 @@ public class NodeInfoServiceImpl extends ServiceImpl<NodeInfoMapper,NodeInfo> im
     private NodeInfoMapper nodeInfoMapper;
     @Override
     public ResultBean addNodeInfo(NodeInfo nodeInfo) {
-        UUID uuid = UUID.randomUUID();
         nodeInfo.setNodeId(IdGenUtils.getId());
         nodeInfo.setNodeCreate(DateUtil.now());
         nodeInfo.setNodeUpdate(DateUtil.now());
-        Integer num = nodeInfoMapper.addNodeInfo(nodeInfo);
+        Integer num = baseMapper.insert(nodeInfo);//问题在这里，报错，你用postman 试一下
+        System.out.println("查看数据"+nodeInfo);
+
         if (num==1){
             return ResultBean.success("新增成功!",true);
         }
@@ -46,8 +47,8 @@ public class NodeInfoServiceImpl extends ServiceImpl<NodeInfoMapper,NodeInfo> im
     }
 
     @Override
-    public ResultBean<NodeInfo> findNodeInfoByName(NodeInfo nodeInfo) {
-        NodeInfo info = nodeInfoMapper.findNodeInfoByName(nodeInfo);
+    public ResultBean<NodeInfo> findNodeInfoByName(String nodeId) {
+        NodeInfo info = nodeInfoMapper.findNodeInfoByName(nodeId);
         if (info==null) {
             return ResultBean.error("节点信息不存在");
         }

@@ -5,10 +5,7 @@ import com.mgt.plat.service.well.NodeInfoService;
 import com.mgt.plat.utils.ResultBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,9 +25,9 @@ public class NodeInfoController {
         return nodeInfoService.UpdateNodeInfo(nodeInfo);
     }
 
-    @PostMapping("/find")
-    public ResultBean<NodeInfo> getNodeInfoByName(@RequestBody NodeInfo nodeInfo){
-        return nodeInfoService.findNodeInfoByName(nodeInfo);
+    @GetMapping("/find/{nodeId}")
+    public ResultBean<NodeInfo> getNodeInfoByName(@PathVariable("nodeId") String nodeId){
+        return nodeInfoService.findNodeInfoByName(nodeId);
     }
 
 }

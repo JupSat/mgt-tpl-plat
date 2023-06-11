@@ -1,5 +1,6 @@
 package com.mgt.plat;
 
+import org.apache.shiro.spring.config.ShiroConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

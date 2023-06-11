@@ -1,5 +1,6 @@
 package com.mgt.plat.controller.oss;
 
+import cn.hutool.json.JSONObject;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
@@ -70,6 +71,6 @@ public class OssControler {
         }
 
 
-        return ResultBean.success("上传成功:",respMap);
+        return ResultBean.success("上传成功",respMap);
     }
 }

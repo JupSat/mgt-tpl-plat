@@ -1,5 +1,7 @@
 package com.mgt.plat.entity.well;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -13,7 +15,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @TableName(value = "node_info")
 public class NodeInfo {
-
+  @TableId(type =IdType.ASSIGN_ID )
   @ApiModelProperty(value = "节点id")
   private String nodeId;
 

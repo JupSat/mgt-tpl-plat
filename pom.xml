@@ -12,6 +12,7 @@
 	<artifactId>mgt-tpl-plat</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mgt-tpl-plat</name>
+	
 	<description>a backend for vue-mgt-tpl</description>
 
 	<properties>

@@ -17,7 +17,7 @@
 
     </insert>
     <select id="findWellInfo" resultType="com.mgt.plat.entity.well.WellInfo">
-        select * from well_info
+        select * from well_info order by well_num
     </select>
 
 </mapper>
